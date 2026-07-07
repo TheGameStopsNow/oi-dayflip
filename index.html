@@ -13,7 +13,7 @@ window.__OICHUNK=function(m,o){Object.assign(window.__AD,o);window.__chunkLoaded
 window.__monthOf=function(d){return d.slice(0,7);};
 window.__loadChunk=function(m,cb){if(window.__chunkLoaded[m]){cb&&cb();return;}var a=(window.__chunkCb[m]=window.__chunkCb[m]||[]);a.push(cb);if(a.length>1)return;var s=document.createElement('script');s.src=window.__OIFRAMES+'/'+m+'.js';s.onerror=function(){window.__chunkLoaded[m]=true;(window.__chunkCb[m]||[]).forEach(function(f){f&&f();});window.__chunkCb[m]=[];};document.head.appendChild(s);};
 window.ensureLoaded=function(d,cb){window.__loadChunk(window.__monthOf(d),function(){cb&&cb();});};
-window.__AD["2026-06-05"]={"META":{"strike_res":33,"time_res":600,"strikes":[10.0,11.0,12.0,13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0,21.0,22.0,23.0,24.0,24.5,25.0,25.5,26.0,26.5,27.0,27.5,28.0,29.0,30.0,32.5,35.0,37.5,40.0,42.5,45.0,47.5,50.0],"exchanges":[{"id":"all","name":"ALL","count":576}],"expirations":[{"key":"20260605","exp":"2026-06-05","days":0,"label":"0DTE","rows":51},{"key":"20260612","exp":"2026-06-12","days":7,"label":"Weekly","rows":63},{"key":"20260619","exp":"2026-06-19","days":14,"label":"Quarterly","rows":66},{"key":"20260626","exp":"2026-06-26","days":21,"label":"Weekly","rows":66},{"key":"20260717","exp":"2026-07-17","days":42,"label":"Monthly","rows":66},{"key":"20260918","exp":"2026-09-18","days":105,"label":"Quarterly","rows":66},{"key":"20261218","exp":"2026-12-18","days":196,"label":"Quarterly","rows":66},{"key":"20270115","exp":"2027-01-15","days":224,"label":"Monthly","rows":66},{"key":"20280121","exp":"2028-01-21","days":595,"label":"LEAPS","rows":66}],"date":"2026-06-05","spot":26.1,"source":"synthetic_demo"},"GRID_DATA":{"20260605_call_oi":"AAAAAAAAAAAAAIBBAADgQQAAUUMAAMxCAABmQwBABUQAUGZFAOC7RACg4kQAQARFAEBCRQCwR0UAcDVFAIA2RQCQD0UAgApFAOCVRABAWEQAwBFEAIDxQwAAlUMAAABDAACGQgAAKEIAAMhBAABwQQAAAAAAAAAAAAAAAAAAAAAAAAAA","20260605_put_oi":"AAAAAAAAAAAAAAAAAABwQQAACEIAAIZCAAAVQwCAl0MAADVEAEBLRAAAu0QA4JZEAGDmRADAHUUAcEFFALB3RQCQVkUAAFNFAODZRADgxEQAYJZEAAAdRAAAt0MAAGFDAAACQwAApkIAADxCAADAQQAAAAAAAAAAAAAAAAAAAAAAAAAA","20260612_call_oi":"AAAEQgAAJEIAAJRCAADGQgAAx0MAAFJDAADNQwDAJ0QAoFZFACDFRACg30QA4AlFABARRQBQOEUAYPtEAJAcRQBwCUUAoN5EAICJRAAglkQAwDlEAEAURAAAtUMAAF5DAABpQwAAIUMAAJJCAABUQgAA8EEAAJBBAAAgQQAAAAAAAAAA","20260612_put_oi":"AACQQQAA6EEAAExCAAB4QgAA5EIAAORCAAC5QwAApUMAgD9EAEBGRAAAgkQA4IxEAODQRADAukQAYBlFAMAqRQBgHUUA0B5FAAAjRQDgxUQAQKFEAAB7RABAHkQAgONDAIChQwAAWEMAAPJCAACSQgAAPEIAAABCAABQQQAAMEEAAAAA","20260619_call_oi":"AICCQwAAl0MAAKFDAMAeRABA/0UAUHJFACizRQB4BUYAPxFHAFiDRgDYnUYA+NBFAMj7RQCkBkYAFBBGANBDRgBcBkYAmOFFAJC4RQBwZEUA8DZFAEAnRQBA6EQAwNJEAACIRAAAM0QAAMdDAACCQwAAM0MAAA5DAACaQgAABEIAANhB","20260619_put_oi":"AAD+QgAANkMAgIhDAIDyQwCACEQAAHdEAECORABgIkUA8GBFALCFRQAwi0UAALZFAIizRQCo9UUAeBJGAIBSRgCEGUYAsCtGADj1RQAMA0YAwN1FAMiDRQDQU0UAcBBFAADERADgp0QAQD9EAADOQwAAyUMAAHdDAAANQwAAlEIAAARC","20260626_call_oi":"AACOQgAA6kIAAENDAAAjQwDg4UQA4IFEAODfRADAKkUATFdGAHCIRQAAa0UAgPdEAKDnRADAFkUAUARFAPAgRQAg6EQAgOJEAIDvRACAZUQAgB1EAMAtRAAA2UMAgLJDAABzQwAAX0MAACxDAADUQgAAREIAABxCAAD4QQAAcEEAADBB","20260626_put_oi":"AAAoQgAAWEIAANZCAADmQgAASEMAgIBDAIDWQwCAyUMAQFpEAEAbRACAo0QAwLFEAECgRAAg1kQAoBFFADAARQBACkUAkClFAKAyRQDwAEUAYPVEAECVRAAANkQAgFdEAMASRACAnkMAgIZDAAA4QwAA7EIAAKBCAACEQgAA4EEAAIBB","20260717_call_oi":"AAAnRAAANkQAAMVEAMC+RADcgUYAEM5FAOi6RQAkLkYAODxHABRdRgDkeEYAUN9FAOQARgDg60UA7ABGAMjNRQDouEUAkI5FAKCsRQAANUUA0FtFABAqRQDAAUUAQOlEAECkRABAj0QAoIdEAAAoRACAFEQAABJEAIDkQwAAZUMAAB5D","20260717_put_oi":"AADrQwBAFUQAgOdDAIBLRAAAl0QAQJZEAMD8RADA50QAgCpFACiFRQBgn0UAKIpFAFBiRQAAp0UAAPBFAPDeRQA4zEUAsAxGAJC7RQC450UA4IFFACiFRQBgOEUAgFpFAMDVRABgAkUAwJdEAICCRABAq0QAAHhEAIDxQwCAlkMAgI9D","20260918_call_oi":"AMCSRABgnkQAgGZEAKCzRAAYmkUAYDBFACBIRQCogkUA2GhGAGCDRQBwukUAkLJFAAjORQCYyUUAEJ5FAEiORQC4tkUACJdFAFBIRQBwgUUAADpFAGAvRQAg7UQA4OJEAODbRAAA/UQAQJdEAEAxRABAdUQAwA1EAADmQwCArEMAAKVD","20260918_put_oi":"AIAiRABASkQAAH9EAABqRAAAjUQAYIpEAOD8RAAwEEUAQBdFANAhRQCgWkUA8IFFAOBTRQBAo0UAAItFAAjYRQBI7kUA2O9FAICeRQBIu0UAoH9FAIBqRQB4hkUA0IBFABA9RQCQDEUAAOVEAMDZRACguEQAII9EAMBJRAAA/UMAAOFD","20261218_call_oi":"AMB5RADAukQAwKxEAMCdRACglkUAkBdFAOAtRQBIhUUAQCZGAPCBRQAwdEUA0HNFAECURQC4pUUAoG1FACCURQBorUUA8GJFAJAjRQCgP0UA4BVFALASRQBA3EQAEAtFAIC2RAAgqEQAQI9EAICaRAAAdEQAwCdEAAD5QwDAEUQAgNBD","20261218_put_oi":"AABMRACAeUQAwEFEAACaRABA5EQAoPREAIDRRABABUUAkB9FABA1RQDARUUAgEdFAPAuRQBgXEUAoGFFABCORQCAoUUAULRFALi1RQDwakUAgGZFAIB3RQAwfUUAgClFABAdRQCg7UQAQONEAAD2RACgnkQAAHJEAIBZRAAAlkQAwBtE","20270115_call_oi":"APB8RQCQjUUAkH9FAHiBRQCoPUYA0LVFAKwDRgDIykUAurFGAHwERgDAPkYAJA5GAHQYRgBEIUYAeARGAHi8RQC4v0UAQKFFAPjPRQDArkUAYHtFADCFRQCIkkUA8G1FABAzRQDIikUAoEtFADBWRQDwEUUAIOhEACDSRAAAn0QAgKBE","20270115_put_oi":"AODzRABg3UQAUAhFAFAZRQAgMUUAkFlFAKBhRQCohEUAmJ9FAOjuRQCIxUUAZAFGALi1RQDA50UAYNJFAAi/RQBoM0YAuAFGAKA+RgDIA0YAoDRGACAQRgAACkYAqNhFAPDsRQDYlkUAWMZFACCERQAQPkUAIC9FAPBuRQDQHEUAgAFF","20280121_call_oi":"ACCPRQDAYUUAgEBFAOBsRQAgT0YAALxFAOCPRQBgqkUASqBGALi2RQAMAUYAIOZFAPgLRgCgC0YAWM1FADjBRQAok0UAAJZFAHC0RQAov0UAAGZFAIiBRQCgLUUAAF1FAGAcRQCwFEUAwEtFAAAIRQDQM0UAQNBEAGAGRQCwAUUAAK9E","20280121_put_oi":"AADWRAAgJUUAcBpFANApRQDQYUUAAINFAJCBRQCwS0UAoIBFAIiBRQAglkUAkJFFACi3RQDInEUAcNtFANCxRQD4B0YAIMRFAPAMRgCsA0YAuAhGAKjiRQDQvkUAaK1FADCyRQAYrUUAYLZFAKC1RQBAWUUAkJdFAJBFRQCAFUUAYCVF"}};
+window.__AD["2026-06-05"]={"META":{"strike_res":61,"time_res":600,"strikes":[3.0,3.1,3.25,3.35,3.5,3.6,3.75,3.85,4.0,4.1,4.25,4.35,4.5,4.6,5.5,5.6,5.75,5.85,6.0,6.1,6.25,6.35,6.5,6.6,6.75,6.85,7.0,7.1,10.0,11.0,12.0,13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0,21.0,22.0,23.0,24.0,24.5,25.0,25.5,26.0,26.5,27.0,27.5,28.0,29.0,30.0,32.5,35.0,37.5,40.0,42.5,45.0,47.5,50.0],"exchanges":[{"id":"all","name":"ALL","count":705}],"expirations":[{"key":"20260605","exp":"2026-06-05","days":0,"label":"0DTE","rows":79},{"key":"20260612","exp":"2026-06-12","days":7,"label":"Weekly","rows":91},{"key":"20260619","exp":"2026-06-19","days":14,"label":"Quarterly","rows":94},{"key":"20260626","exp":"2026-06-26","days":21,"label":"Weekly","rows":82},{"key":"20260717","exp":"2026-07-17","days":42,"label":"Monthly","rows":77},{"key":"20260918","exp":"2026-09-18","days":105,"label":"Quarterly","rows":74},{"key":"20261218","exp":"2026-12-18","days":196,"label":"Quarterly","rows":73},{"key":"20270115","exp":"2027-01-15","days":224,"label":"Monthly","rows":69},{"key":"20280121","exp":"2028-01-21","days":595,"label":"LEAPS","rows":66}],"date":"2026-06-05","spot":26.1,"source":"synthetic_demo"},"GRID_DATA":{"20260605_call_oi":"AAAAAAAAAAAAAIBBAADgQQAAUUMAAMxCAABmQwBABUQAUGZFAOC7RACg4kQAQARFAEBCRQCwR0UAcDVFAIA2RQCQD0UAgApFAOCVRABAWEQAwBFEAIDxQwAAlUMAAABDAACGQgAAKEIAAMhBAABwQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20260605_put_oi":"AAAAAAAAAAAAAAAAAABwQQAACEIAAIZCAAAVQwCAl0MAADVEAEBLRAAAu0QA4JZEAGDmRADAHUUAcEFFALB3RQCQVkUAAFNFAODZRADgxEQAYJZEAAAdRAAAt0MAAGFDAAACQwAApkIAADxCAADAQQAAAAAAAAAAAAAAAAAAAAAAAAAAAMDQRQCQlkUApD9GAJCWRQCkP0YAkJZFAKQ/RgCQlkUApD9GAJCWRQCkP0YAkJZFAMDQRQCQlkUA0HlGAJCWRQDQeUYAkJZFANB5RgCQlkUAwNBFAJCWRQDQeUYAkJZFANB5RgCQlkUAwNBFAJCWRQ==","20260612_call_oi":"AAAEQgAAJEIAAJRCAADGQgAAx0MAAFJDAADNQwDAJ0QAoFZFACDFRACg30QA4AlFABARRQBQOEUAYPtEAJAcRQBwCUUAoN5EAICJRAAglkQAwDlEAEAURAAAtUMAAF5DAABpQwAAIUMAAJJCAABUQgAA8EEAAJBBAAAgQQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20260612_put_oi":"AACQQQAA6EEAAExCAAB4QgAA5EIAAORCAAC5QwAApUMAgD9EAEBGRAAAgkQA4IxEAODQRADAukQAYBlFAMAqRQBgHUUA0B5FAAAjRQDgxUQAQKFEAAB7RABAHkQAgONDAIChQwAAWEMAAPJCAACSQgAAPEIAAABCAABQQQAAMEEAAAAAAIwiRgB0BUYAFrdGANB5RgAWt0YA0HlGAHSLRgDQeUYAFrdGANB5RgAWt0YA0HlGAIwiRgB0BUYALNRGABa3RgAs1EYAFrdGACzURgAWt0YAjCJGAHQFRgAs1EYAFrdGACzURgAWt0YAjCJGAHQFRg==","20260619_call_oi":"AICCQwAAl0MAAKFDAMAeRABA/0UAUHJFACizRQB4BUYAPxFHAFiDRgDYnUYA+NBFAMj7RQCkBkYAFBBGANBDRgBcBkYAmOFFAJC4RQBwZEUA8DZFAEAnRQBA6EQAwNJEAACIRAAAM0QAAMdDAACCQwAAM0MAAA5DAACaQgAABEIAANhBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20260619_put_oi":"AAD+QgAANkMAgIhDAIDyQwCACEQAAHdEAECORABgIkUA8GBFALCFRQAwi0UAALZFAIizRQCo9UUAeBJGAIBSRgCEGUYAsCtGADj1RQAMA0YAwN1FAMiDRQDQU0UAcBBFAADERADgp0QAQD9EAADOQwAAyUMAAHdDAAANQwAAlEIAAARCABa3RgDQeUYAuBVHAELxRgC4FUcAQvFGAIqoRgD+mUYAuBVHAELxRgC4FUcAQvFGAP6ZRgB0i0YAuBVHAC0HRwC4FUcAzv9GALgVRwBC8UYAdItGANB5RgC4FUcAQvFGALgVRwDO/0YAdItGAKQ/Rg==","20260626_call_oi":"AACOQgAA6kIAAENDAAAjQwDg4UQA4IFEAODfRADAKkUATFdGAHCIRQAAa0UAgPdEAKDnRADAFkUAUARFAPAgRQAg6EQAgOJEAIDvRACAZUQAgB1EAMAtRAAA2UMAgLJDAABzQwAAX0MAACxDAADUQgAAREIAABxCAAD4QQAAcEEAADBBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20260626_put_oi":"AAAoQgAAWEIAANZCAADmQgAASEMAgIBDAIDWQwCAyUMAQFpEAEAbRACAo0QAwLFEAECgRAAg1kQAoBFFADAARQBACkUAkClFAKAyRQDwAEUAYPVEAECVRAAANkQAgFdEAMASRACAnkMAgIZDAAA4QwAA7EIAAKBCAACEQgAA4EEAAIBBALgVRwBC8UYAAAAAAM4yRwAAAAAAzjJHAELxRgAWt0YAAAAAAM4yRwAAAAAAzjJHACzURgCKqEYAQyRHAP0cRwAAAAAAAAAAAAAAAAAAAAAAiqhGAP6ZRgAAAAAAAAAAAAAAAAAAAAAAiqhGAP6ZRg==","20260717_call_oi":"AAAnRAAANkQAAMVEAMC+RADcgUYAEM5FAOi6RQAkLkYAODxHABRdRgDkeEYAUN9FAOQARgDg60UA7ABGAMjNRQDouEUAkI5FAKCsRQAANUUA0FtFABAqRQDAAUUAQOlEAECkRABAj0QAoIdEAAAoRACAFEQAABJEAIDkQwAAZUMAAB5DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20260717_put_oi":"AADrQwBAFUQAgOdDAIBLRAAAl0QAQJZEAMD8RADA50QAgCpFACiFRQBgn0UAKIpFAFBiRQAAp0UAAPBFAPDeRQA4zEUAsAxGAJC7RQC450UA4IFFACiFRQBgOEUAgFpFAMDVRABgAkUAwJdEAICCRABAq0QAAHhEAIDxQwCAlkMAgI9DAAAAAADOMkcAAAAAAAAAAAAAAAAAAAAAAP0cRwC4FUcAAAAAAAAAAAAAAAAAAAAAAELxRgC44kYAzjJHAIkrRwAAAAAAAAAAAAAAAAAAAAAALNRGABa3RgAAAAAAAAAAAAAAAAAAAAAALQdHACzURg==","20260918_call_oi":"AMCSRABgnkQAgGZEAKCzRAAYmkUAYDBFACBIRQCogkUA2GhGAGCDRQBwukUAkLJFAAjORQCYyUUAEJ5FAEiORQC4tkUACJdFAFBIRQBwgUUAADpFAGAvRQAg7UQA4OJEAODbRAAA/UQAQJdEAEAxRABAdUQAwA1EAADmQwCArEMAAKVDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20260918_put_oi":"AIAiRABASkQAAH9EAABqRAAAjUQAYIpEAOD8RAAwEEUAQBdFANAhRQCgWkUA8IFFAOBTRQBAo0UAAItFAAjYRQBI7kUA2O9FAICeRQBIu0UAoH9FAIBqRQB4hkUA0IBFABA9RQCQDEUAAOVEAMDZRACguEQAII9EAMBJRAAA/UMAAOFDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIkrRwBDJEcAAAAAAAAAAAAAAAAAAAAAAC0HRwDO/0YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAuBVHALjiRgAAAAAAAAAAAAAAAAAAAAAA/RxHALgVRw==","20261218_call_oi":"AMB5RADAukQAwKxEAMCdRACglkUAkBdFAOAtRQBIhUUAQCZGAPCBRQAwdEUA0HNFAECURQC4pUUAoG1FACCURQBorUUA8GJFAJAjRQCgP0UA4BVFALASRQBA3EQAEAtFAIC2RAAgqEQAQI9EAICaRAAAdEQAwCdEAAD5QwDAEUQAgNBDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20261218_put_oi":"AABMRACAeUQAwEFEAACaRABA5EQAoPREAIDRRABABUUAkB9FABA1RQDARUUAgEdFAPAuRQBgXEUAoGFFABCORQCAoUUAULRFALi1RQDwakUAgGZFAIB3RQAwfUUAgClFABAdRQCg7UQAQONEAAD2RACgnkQAAHJEAIBZRAAAlkQAwBtEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADOMkcAAAAAAAAAAAAAAAAAAAAAAEMkRwD9HEcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQyRHAP0cRwAAAAAAAAAAAAAAAAAAAAAAiStHAEMkRw==","20270115_call_oi":"APB8RQCQjUUAkH9FAHiBRQCoPUYA0LVFAKwDRgDIykUAurFGAHwERgDAPkYAJA5GAHQYRgBEIUYAeARGAHi8RQC4v0UAQKFFAPjPRQDArkUAYHtFADCFRQCIkkUA8G1FABAzRQDIikUAoEtFADBWRQDwEUUAIOhEACDSRAAAn0QAgKBEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20270115_put_oi":"AODzRABg3UQAUAhFAFAZRQAgMUUAkFlFAKBhRQCohEUAmJ9FAOjuRQCIxUUAZAFGALi1RQDA50UAYNJFAAi/RQBoM0YAuAFGAKA+RgDIA0YAoDRGACAQRgAACkYAqNhFAPDsRQDYlkUAWMZFACCERQAQPkUAIC9FAPBuRQDQHEUAgAFFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACJK0cAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIkrRwAAAAAAAAAAAAAAAAAAAAAAAAAAAM4yRw==","20280121_call_oi":"ACCPRQDAYUUAgEBFAOBsRQAgT0YAALxFAOCPRQBgqkUASqBGALi2RQAMAUYAIOZFAPgLRgCgC0YAWM1FADjBRQAok0UAAJZFAHC0RQAov0UAAGZFAIiBRQCgLUUAAF1FAGAcRQCwFEUAwEtFAAAIRQDQM0UAQNBEAGAGRQCwAUUAAK9EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==","20280121_put_oi":"AADWRAAgJUUAcBpFANApRQDQYUUAAINFAJCBRQCwS0UAoIBFAIiBRQAglkUAkJFFACi3RQDInEUAcNtFANCxRQD4B0YAIMRFAPAMRgCsA0YAuAhGAKjiRQDQvkUAaK1FADCyRQAYrUUAYLZFAKC1RQBAWUUAkJdFAJBFRQCAFUUAYCVFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="}};
 window.__DI="2026-06-05";
 </script>
 
@@ -64,7 +64,7 @@ window.__DI="2026-06-05";
             <div class="sr"><label>Pitch (X)</label><input type="range" id="rotX" min="-180" max="180" step="0.1" value="0.0" oninput="updateRot()"><span id="valXRot">0.0°</span></div>
             <div class="sr"><label>Yaw (Y)</label><input type="range" id="rotY" min="-180" max="180" step="0.1" value="0.0" oninput="updateRot()"><span id="valYRot">0.0°</span></div>
             <div class="sr"><label>Roll (Z)</label><input type="range" id="rotZ" min="-180" max="180" step="0.1" value="0.0" oninput="updateRot()"><span id="valZRot">0.0°</span></div>
-            <div class="sr"><label>Pt Size</label><input type="range" id="pointSize" min="1" max="10" step="0.5" value="2" oninput="updateSize()"><span id="valSize">2.0</span></div>
+            <div class="sr"><label>Pt Size</label><input type="range" id="pointSize" min="1" max="10" step="0.5" value="3" oninput="updateSize()"><span id="valSize">3.0</span></div>
             <div class="sr" style="margin-top:3px"><label>Turntable</label><div class="btn-row" style="flex:1;margin:0">
                 <button id="ttX" onclick="toggleTT('x')" title="Auto-rotate Pitch X">Pitch X</button>
                 <button id="ttY" onclick="toggleTT('y')" title="Auto-rotate Yaw Y">Yaw Y</button>
@@ -513,11 +513,11 @@ var PAL_DATA = {
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById('plot').appendChild(renderer.domElement);
         var geometry = new THREE.BufferGeometry();
-        var material = new THREE.PointsMaterial({ size: 2, vertexColors: true, sizeAttenuation: false });
+        var material = new THREE.PointsMaterial({ size: 3, vertexColors: true, sizeAttenuation: false });
         var pointsObj = new THREE.Points(geometry, material);
         // Mirror clone for 'both' symmetry mode
         var mirrorGeometry = new THREE.BufferGeometry();
-        var mirrorMaterial = new THREE.PointsMaterial({ size: 2, vertexColors: true, sizeAttenuation: false });
+        var mirrorMaterial = new THREE.PointsMaterial({ size: 3, vertexColors: true, sizeAttenuation: false });
         var mirrorObj = new THREE.Points(mirrorGeometry, mirrorMaterial);
         mirrorObj.visible = false;
         var nullObject = new THREE.Group();
@@ -533,11 +533,11 @@ var PAL_DATA = {
         var sideFlip = {call:{x:false,y:false,z:false}, put:{x:false,y:false,z:false}};
         var sideOffset = {call:{x:0,y:0,z:0}, put:{x:0,y:0,z:0}};
         var callsGeometry = new THREE.BufferGeometry();
-        var callsMaterial = new THREE.PointsMaterial({ size: 2, vertexColors: true, sizeAttenuation: false });
+        var callsMaterial = new THREE.PointsMaterial({ size: 3, vertexColors: true, sizeAttenuation: false });
         var callsObj = new THREE.Points(callsGeometry, callsMaterial);
         callsObj.visible = false;
         var putsGeometry = new THREE.BufferGeometry();
-        var putsMaterial = new THREE.PointsMaterial({ size: 2, vertexColors: true, sizeAttenuation: false });
+        var putsMaterial = new THREE.PointsMaterial({ size: 3, vertexColors: true, sizeAttenuation: false });
         var putsObj = new THREE.Points(putsGeometry, putsMaterial);
         putsObj.visible = false;
         nullObject.add(callsObj);
@@ -1458,7 +1458,8 @@ window.__csvParse = function(text){
         cK = findCol(hdr,['strike','strike_price']),
         cR = findCol(hdr,['right','type','cp','call_put','putcall','option_type']),
         cO = findCol(hdr,['open_interest','oi','openinterest']),
-        cS = findCol(hdr,['spot','underlying','underlying_price','close']);
+        cS = findCol(hdr,['spot','underlying','underlying_price','close']),
+        cSym = findCol(hdr,['symbol','ticker','act_symbol','root']);
     var miss = [];
     if(cD<0) miss.push('date'); if(cE<0) miss.push('expiration'); if(cK<0) miss.push('strike');
     if(cR<0) miss.push('right'); if(cO<0) miss.push('open_interest');
@@ -1472,9 +1473,10 @@ window.__csvParse = function(text){
         var K = parseFloat(c[cK]), oi = parseFloat(c[cO]);
         var r = String(c[cR]).trim().charAt(0).toUpperCase();
         if(!(K>0) || !(oi>0) || (r!=='C' && r!=='P')) continue;
-        if(!days[d]) days[d] = {rows:[], spot:0};
+        if(!days[d]) days[d] = {rows:[], spot:0, syn:false};
         days[d].rows.push([e,K,r,oi]);
         if(cS>=0){ var sp = parseFloat(c[cS]); if(sp>0) days[d].spot = sp; }
+        if(cSym>=0 && /SYNTH/i.test(String(c[cSym]))) days[d].syn = true;
     }
     var recs = {}, dl = Object.keys(days).sort();
     if(!dl.length) return {err:'no valid rows parsed — check date/expiration formats'};
@@ -1511,7 +1513,8 @@ window.__csvParse = function(text){
         }
         recs[d] = {META:{strike_res:SR, time_res:600, strikes:strikes,
                          exchanges:[{id:'all', name:'ALL', count:rows.length}],
-                         expirations:expMeta, date:d, spot:Math.round(spot*100)/100, source:'user_csv'},
+                         expirations:expMeta, date:d, spot:Math.round(spot*100)/100,
+                         source: days[d].syn ? 'synthetic_demo' : 'user_csv'},
                    GRID_DATA:grid};
     });
     return {recs:recs, dates:dl};
@@ -1561,6 +1564,27 @@ function handleFiles(files){
 }
 
 document.addEventListener('DOMContentLoaded', function(){
+    // Synthetic-data banner: shown whenever the displayed day is demo data
+    var ban = document.createElement('div');
+    ban.id = 'synBanner';
+    ban.innerHTML = '&#9888; SYNTHETIC DEMO DATA &mdash; this is NOT real options data' +
+        '<div style="font-size:11px;font-weight:normal;letter-spacing:0;margin-top:3px">' +
+        'BYOD: load your own CSV (drag &amp; drop, or the Load CSV button) &mdash; see README</div>';
+    ban.style.cssText = 'display:none;position:fixed;top:0;left:50%;transform:translateX(-50%);z-index:60;' +
+        'background:rgba(120,24,0,.93);border:2px solid #ff8a4d;border-top:none;color:#ffd9a0;' +
+        'font:bold 15px monospace;letter-spacing:1px;padding:10px 26px;border-radius:0 0 10px 10px;' +
+        'text-align:center;pointer-events:none';
+    document.body.appendChild(ban);
+    function updateBanner(){
+        var r = window.__AD && window.__AD[window.__DI];
+        ban.style.display = (r && r.META && r.META.source === 'synthetic_demo') ? 'block' : 'none';
+    }
+    if(window.__switchDateSync){
+        var _sw = window.__switchDateSync;
+        window.__switchDateSync = function(d){ _sw(d); updateBanner(); };
+    }
+    updateBanner();
+
     // Load button next to the date dropdown
     var sel = document.getElementById('selDate');
     if(sel && sel.parentNode){
