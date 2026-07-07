@@ -19,7 +19,7 @@ source you are licensed to use. Everything you load stays in your browser.
 ## Use it / deploy it (one click)
 
 - **Just use it:** the live page is at `https://thegamestopsnow.github.io/oi-dayflip/` — nothing to install, drag your CSV on.
-- **Your own copy on GitHub:** click **Use this template** at the top of this repo, name your copy, done — the included workflow auto-publishes it to `https://<your-username>.github.io/<repo-name>/` on the first push (if the badge stays gray, approve the workflow once under the Actions tab).
+- **Your own copy on GitHub:** click **Use this template** at the top of this repo, name your copy, done — the included workflow auto-publishes it to `https://<your-username>.github.io/<repo-name>/` on the first push (if the badge stays gray, approve the workflow once under the Actions tab). If that first run fails with "Resource not accessible by integration", flip one switch: Settings → Pages → Source: **GitHub Actions**, then re-run the workflow.
 - **Other hosts:** [Deploy to Netlify](https://app.netlify.com/start/deploy?repository=https://github.com/TheGameStopsNow/oi-dayflip) · [Deploy with Vercel](https://vercel.com/new/clone?repository-url=https://github.com/TheGameStopsNow/oi-dayflip)
 - **No host at all:** download the repo zip and double-click `index.html` — it runs from a local file.
 
