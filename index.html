@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <title>OI Day-Flip — options open-interest glyph viewer (bring your own data)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+window.__AD={};
+window.__AD_DATES=["2026-06-05"];
+window.__OIFRAMES="oi_dayflip_frames";
+window.__chunkLoaded={};window.__chunkCb={};
+window.__OICHUNK=function(m,o){Object.assign(window.__AD,o);window.__chunkLoaded[m]=true;(window.__chunkCb[m]||[]).forEach(function(f){f&&f();});window.__chunkCb[m]=[];};
+window.__monthOf=function(d){return d.slice(0,7);};
+window.__loadChunk=function(m,cb){if(window.__chunkLoaded[m]){cb&&cb();return;}var a=(window.__chunkCb[m]=window.__chunkCb[m]||[]);a.push(cb);if(a.length>1)return;var s=document.createElement('script');s.src=window.__OIFRAMES+'/'+m+'.js';s.onerror=function(){window.__chunkLoaded[m]=true;(window.__chunkCb[m]||[]).forEach(function(f){f&&f();});window.__chunkCb[m]=[];};document.head.appendChild(s);};
+window.ensureLoaded=function(d,cb){window.__loadChunk(window.__monthOf(d),function(){cb&&cb();});};
+window.__AD["2026-06-05"]={"META":{"strike_res":33,"time_res":600,"strikes":[10.0,11.0,12.0,13.0,14.0,15.0,16.0,17.0,18.0,19.0,20.0,21.0,22.0,23.0,24.0,24.5,25.0,25.5,26.0,26.5,27.0,27.5,28.0,29.0,30.0,32.5,35.0,37.5,40.0,42.5,45.0,47.5,50.0],"exchanges":[{"id":"all","name":"ALL","count":576}],"expirations":[{"key":"20260605","exp":"2026-06-05","days":0,"label":"0DTE","rows":51},{"key":"20260612","exp":"2026-06-12","days":7,"label":"Weekly","rows":63},{"key":"20260619","exp":"2026-06-19","days":14,"label":"Quarterly","rows":66},{"key":"20260626","exp":"2026-06-26","days":21,"label":"Weekly","rows":66},{"key":"20260717","exp":"2026-07-17","days":42,"label":"Monthly","rows":66},{"key":"20260918","exp":"2026-09-18","days":105,"label":"Quarterly","rows":66},{"key":"20261218","exp":"2026-12-18","days":196,"label":"Quarterly","rows":66},{"key":"20270115","exp":"2027-01-15","days":224,"label":"Monthly","rows":66},{"key":"20280121","exp":"2028-01-21","days":595,"label":"LEAPS","rows":66}],"date":"2026-06-05","spot":26.1,"source":"synthetic_demo"},"GRID_DATA":{"20260605_call_oi":"AAAAAAAAAAAAAIBBAADgQQAAUUMAAMxCAABmQwBABUQAUGZFAOC7RACg4kQAQARFAEBCRQCwR0UAcDVFAIA2RQCQD0UAgApFAOCVRABAWEQAwBFEAIDxQwAAlUMAAABDAACGQgAAKEIAAMhBAABwQQAAAAAAAAAAAAAAAAAAAAAAAAAA","20260605_put_oi":"AAAAAAAAAAAAAAAAAABwQQAACEIAAIZCAAAVQwCAl0MAADVEAEBLRAAAu0QA4JZEAGDmRADAHUUAcEFFALB3RQCQVkUAAFNFAODZRADgxEQAYJZEAAAdRAAAt0MAAGFDAAACQwAApkIAADxCAADAQQAAAAAAAAAAAAAAAAAAAAAAAAAA","20260612_call_oi":"AAAEQgAAJEIAAJRCAADGQgAAx0MAAFJDAADNQwDAJ0QAoFZFACDFRACg30QA4AlFABARRQBQOEUAYPtEAJAcRQBwCUUAoN5EAICJRAAglkQAwDlEAEAURAAAtUMAAF5DAABpQwAAIUMAAJJCAABUQgAA8EEAAJBBAAAgQQAAAAAAAAAA","20260612_put_oi":"AACQQQAA6EEAAExCAAB4QgAA5EIAAORCAAC5QwAApUMAgD9EAEBGRAAAgkQA4IxEAODQRADAukQAYBlFAMAqRQBgHUUA0B5FAAAjRQDgxUQAQKFEAAB7RABAHkQAgONDAIChQwAAWEMAAPJCAACSQgAAPEIAAABCAABQQQAAMEEAAAAA","20260619_call_oi":"AICCQwAAl0MAAKFDAMAeRABA/0UAUHJFACizRQB4BUYAPxFHAFiDRgDYnUYA+NBFAMj7RQCkBkYAFBBGANBDRgBcBkYAmOFFAJC4RQBwZEUA8DZFAEAnRQBA6EQAwNJEAACIRAAAM0QAAMdDAACCQwAAM0MAAA5DAACaQgAABEIAANhB","20260619_put_oi":"AAD+QgAANkMAgIhDAIDyQwCACEQAAHdEAECORABgIkUA8GBFALCFRQAwi0UAALZFAIizRQCo9UUAeBJGAIBSRgCEGUYAsCtGADj1RQAMA0YAwN1FAMiDRQDQU0UAcBBFAADERADgp0QAQD9EAADOQwAAyUMAAHdDAAANQwAAlEIAAARC","20260626_call_oi":"AACOQgAA6kIAAENDAAAjQwDg4UQA4IFEAODfRADAKkUATFdGAHCIRQAAa0UAgPdEAKDnRADAFkUAUARFAPAgRQAg6EQAgOJEAIDvRACAZUQAgB1EAMAtRAAA2UMAgLJDAABzQwAAX0MAACxDAADUQgAAREIAABxCAAD4QQAAcEEAADBB","20260626_put_oi":"AAAoQgAAWEIAANZCAADmQgAASEMAgIBDAIDWQwCAyUMAQFpEAEAbRACAo0QAwLFEAECgRAAg1kQAoBFFADAARQBACkUAkClFAKAyRQDwAEUAYPVEAECVRAAANkQAgFdEAMASRACAnkMAgIZDAAA4QwAA7EIAAKBCAACEQgAA4EEAAIBB","20260717_call_oi":"AAAnRAAANkQAAMVEAMC+RADcgUYAEM5FAOi6RQAkLkYAODxHABRdRgDkeEYAUN9FAOQARgDg60UA7ABGAMjNRQDouEUAkI5FAKCsRQAANUUA0FtFABAqRQDAAUUAQOlEAECkRABAj0QAoIdEAAAoRACAFEQAABJEAIDkQwAAZUMAAB5D","20260717_put_oi":"AADrQwBAFUQAgOdDAIBLRAAAl0QAQJZEAMD8RADA50QAgCpFACiFRQBgn0UAKIpFAFBiRQAAp0UAAPBFAPDeRQA4zEUAsAxGAJC7RQC450UA4IFFACiFRQBgOEUAgFpFAMDVRABgAkUAwJdEAICCRABAq0QAAHhEAIDxQwCAlkMAgI9D","20260918_call_oi":"AMCSRABgnkQAgGZEAKCzRAAYmkUAYDBFACBIRQCogkUA2GhGAGCDRQBwukUAkLJFAAjORQCYyUUAEJ5FAEiORQC4tkUACJdFAFBIRQBwgUUAADpFAGAvRQAg7UQA4OJEAODbRAAA/UQAQJdEAEAxRABAdUQAwA1EAADmQwCArEMAAKVD","20260918_put_oi":"AIAiRABASkQAAH9EAABqRAAAjUQAYIpEAOD8RAAwEEUAQBdFANAhRQCgWkUA8IFFAOBTRQBAo0UAAItFAAjYRQBI7kUA2O9FAICeRQBIu0UAoH9FAIBqRQB4hkUA0IBFABA9RQCQDEUAAOVEAMDZRACguEQAII9EAMBJRAAA/UMAAOFD","20261218_call_oi":"AMB5RADAukQAwKxEAMCdRACglkUAkBdFAOAtRQBIhUUAQCZGAPCBRQAwdEUA0HNFAECURQC4pUUAoG1FACCURQBorUUA8GJFAJAjRQCgP0UA4BVFALASRQBA3EQAEAtFAIC2RAAgqEQAQI9EAICaRAAAdEQAwCdEAAD5QwDAEUQAgNBD","20261218_put_oi":"AABMRACAeUQAwEFEAACaRABA5EQAoPREAIDRRABABUUAkB9FABA1RQDARUUAgEdFAPAuRQBgXEUAoGFFABCORQCAoUUAULRFALi1RQDwakUAgGZFAIB3RQAwfUUAgClFABAdRQCg7UQAQONEAAD2RACgnkQAAHJEAIBZRAAAlkQAwBtE","20270115_call_oi":"APB8RQCQjUUAkH9FAHiBRQCoPUYA0LVFAKwDRgDIykUAurFGAHwERgDAPkYAJA5GAHQYRgBEIUYAeARGAHi8RQC4v0UAQKFFAPjPRQDArkUAYHtFADCFRQCIkkUA8G1FABAzRQDIikUAoEtFADBWRQDwEUUAIOhEACDSRAAAn0QAgKBE","20270115_put_oi":"AODzRABg3UQAUAhFAFAZRQAgMUUAkFlFAKBhRQCohEUAmJ9FAOjuRQCIxUUAZAFGALi1RQDA50UAYNJFAAi/RQBoM0YAuAFGAKA+RgDIA0YAoDRGACAQRgAACkYAqNhFAPDsRQDYlkUAWMZFACCERQAQPkUAIC9FAPBuRQDQHEUAgAFF","20280121_call_oi":"ACCPRQDAYUUAgEBFAOBsRQAgT0YAALxFAOCPRQBgqkUASqBGALi2RQAMAUYAIOZFAPgLRgCgC0YAWM1FADjBRQAok0UAAJZFAHC0RQAov0UAAGZFAIiBRQCgLUUAAF1FAGAcRQCwFEUAwEtFAAAIRQDQM0UAQNBEAGAGRQCwAUUAAK9E","20280121_put_oi":"AADWRAAgJUUAcBpFANApRQDQYUUAAINFAJCBRQCwS0UAoIBFAIiBRQAglkUAkJFFACi3RQDInEUAcNtFANCxRQD4B0YAIMRFAPAMRgCsA0YAuAhGAKjiRQDQvkUAaK1FADCyRQAYrUUAYLZFAKC1RQBAWUUAkJdFAJBFRQCAFUUAYCVF"}};
+window.__DI="2026-06-05";
+</script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; background: #000; color: #fff; height: 100vh; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+        #plot { width: 100vw; height: 100vh; position: absolute; top:0; left:0; z-index: 1; }
+        #controls { padding: 10px; background: rgba(10,10,10,0.92); border: 1px solid #333; position: absolute; z-index: 100; top: 10px; left: 10px; border-radius: 8px; box-shadow: 2px 2px 20px rgba(0,0,0,0.9); backdrop-filter: blur(8px); width: 340px; max-height: calc(100vh - 20px); overflow-y: auto; font-size: 11px; }
+        #controls::-webkit-scrollbar { width: 4px; }
+        #controls::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+        .cg { display: flex; flex-direction: column; gap: 3px; background: #1a1a1a; padding: 7px 9px; border-radius: 5px; margin-bottom: 6px; }
+        .hdr { font-weight: 600; color: #8f8; text-transform: uppercase; font-size: 9px; letter-spacing: 1.5px; margin-bottom: 2px; border-bottom: 1px solid #333; padding-bottom: 2px; }
+        .sr { display: flex; align-items: center; gap: 6px; }
+        .sr label { width: 58px; color: #888; text-align: right; font-size: 10px; flex-shrink: 0; }
+        .sr span { width: 42px; text-align: right; font-family: 'SF Mono', monospace; font-size: 10px; color: #0f0; flex-shrink: 0; }
+        input[type=range] { flex: 1; cursor: pointer; accent-color: #0f0; height: 12px; }
+        select { background: #222; color: #fff; border: 1px solid #444; padding: 3px 6px; border-radius: 3px; cursor: pointer; font-size: 10px; width: 100%; }
+        button { background: #222; color: #fff; border: 1px solid #444; padding: 4px 6px; border-radius: 3px; cursor: pointer; font-size: 9px; flex: 1; }
+        button:hover { background: #333; border-color: #0f0; }
+        .btn-row { display: flex; gap: 3px; }
+        .chip-grid { display: flex; flex-wrap: wrap; gap: 2px; }
+        .chip { display: inline-flex; align-items: center; gap: 3px; background: #222; border: 1px solid #444; border-radius: 3px; padding: 2px 5px; font-size: 9px; cursor: pointer; user-select: none; }
+        .chip.active { background: #1a3a1a; border-color: #0f0; color: #0f0; }
+        .chip.exp-active { background: #1a1a3a; border-color: #66f; color: #88f; }
+        .info { font-size: 8px; color: #555; margin-top: 3px; }
+        #statusBar { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); z-index: 100; background: rgba(0,0,0,0.7); padding: 3px 10px; border-radius: 4px; font-size: 10px; color: #888; font-family: monospace; }
+    
+.cg > .hdr{cursor:pointer;user-select:none;position:relative;}
+.cg > .hdr::after{content:'▾';position:absolute;right:4px;top:2px;opacity:.45;font-size:9px;}
+.cg.df-collapsed > .hdr::after{content:'▸';}
+.cg.df-collapsed > :not(.hdr){display:none !important;}
+</style>
+</head>
+<body>
+    <div id="plot"></div>
+    <div id="statusBar">Loading...</div>
+    <div id="controls">
+        <div class="cg">
+            <div class="hdr">Date</div>
+            <div class="sr"><label>Date</label>
+                <select id="selDate" onchange="switchDate(this.value)"></select>
+            </div>
+        </div>
+
+        <div class="cg">
+            <div class="hdr">Camera</div>
+            <div class="sr"><label>Zoom</label><input type="range" id="camZoom" min="0.1" max="50.0" step="0.01" value="1.0" oninput="updateRot()"><span id="valZoom">1.00x</span></div>
+            <div class="sr"><label>Pitch (X)</label><input type="range" id="rotX" min="-180" max="180" step="0.1" value="0.0" oninput="updateRot()"><span id="valXRot">0.0°</span></div>
+            <div class="sr"><label>Yaw (Y)</label><input type="range" id="rotY" min="-180" max="180" step="0.1" value="0.0" oninput="updateRot()"><span id="valYRot">0.0°</span></div>
+            <div class="sr"><label>Roll (Z)</label><input type="range" id="rotZ" min="-180" max="180" step="0.1" value="0.0" oninput="updateRot()"><span id="valZRot">0.0°</span></div>
+            <div class="sr"><label>Pt Size</label><input type="range" id="pointSize" min="1" max="10" step="0.5" value="2" oninput="updateSize()"><span id="valSize">2.0</span></div>
+            <div class="sr" style="margin-top:3px"><label>Turntable</label><div class="btn-row" style="flex:1;margin:0">
+                <button id="ttX" onclick="toggleTT('x')" title="Auto-rotate Pitch X">Pitch X</button>
+                <button id="ttY" onclick="toggleTT('y')" title="Auto-rotate Yaw Y">Yaw Y</button>
+                <button id="ttZ" onclick="toggleTT('z')" title="Auto-rotate Roll Z">Roll Z</button>
+            </div></div>
+            <div class="sr"><label>Spin speed</label><input type="range" id="ttSpeed" min="2" max="180" step="1" value="30" oninput="TT.speed=+this.value;document.getElementById('valTTSpeed').innerText=this.value+'°/s'"><span id="valTTSpeed">30°/s</span></div>
+            <div class="btn-row">
+                <button onclick="resetCam(0,0,0)">Front</button>
+                <button onclick="resetCam(-90,0,0)">Top</button>
+                <button onclick="resetCam(0,90,0)">Side</button>
+                <button onclick="resetCam(-45,45,0)">Iso</button>
+            </div>
+            <div class="btn-row" style="margin-top:3px">
+                <button id="mirX" onclick="toggleMirror('x')" title="Mirror X: click cycles Normal→Flip→Both">⬌ X</button>
+                <button id="mirY" onclick="toggleMirror('y')" title="Mirror Y: click cycles Normal→Flip→Both">⬍ Y</button>
+                <button id="mirZ" onclick="toggleMirror('z')" title="Mirror Z: click cycles Normal→Flip→Both">⬍ Z</button>
+            </div>
+            <div class="info">Drag=rotate · ⌘+drag=pan · Scroll=zoom</div>
+        </div>
+
+        <div class="cg">
+            <div class="hdr">Expiration Layers <span style="color:#666;font-size:8px">(click to toggle, multiple OK)</span></div>
+            <div class="chip-grid" id="expGrid"></div>
+            <div class="btn-row" style="margin-top:4px">
+                <button onclick="selectExpGroup('0DTE')">0DTE</button>
+                <button onclick="selectExpGroup('Weekly')">Weekly</button>
+                <button onclick="selectExpGroup('Monthly')">Monthly</button>
+                <button onclick="selectExpGroup('Quarterly')">Quarterly</button>
+                <button onclick="selectExpGroup('LEAPS')">LEAPS</button>
+                <button onclick="selectExpGroup('ALL')">All</button>
+            </div>
+        </div>
+
+        <div class="cg">
+            <div class="hdr">Exchange</div>
+            <div class="chip-grid" id="exchGrid"></div>
+        </div>
+
+        <div class="cg">
+            <div class="hdr">Data Filter</div>
+            <div class="sr"><label>Right</label>
+                <select id="selRight" onchange="rebuild()"><option value="both">Calls + Puts</option><option value="calls">Calls Only</option><option value="puts">Puts Only</option></select>
+            </div>
+            <div class="sr"><label>Call Z</label>
+                <select id="selCallDir" onchange="rebuild()"><option value="normal">Normal</option><option value="invert">Inverted</option></select>
+            </div>
+            <div class="sr"><label>Put Z</label>
+                <select id="selPutDir" onchange="rebuild()"><option value="normal">Normal</option><option value="invert">Inverted</option></select>
+            </div>
+            <div class="sr"><label>C/P Place</label>
+                <select id="selCPPlace" onchange="rebuild()"><option value="normal" selected>Normal</option><option value="mirrorCalls">Mirror calls</option><option value="mirrorPuts">Mirror puts</option><option value="mirrorBoth">Mirror both</option></select>
+            </div>
+            <div class="sr"><label>C/P Align</label><input type="range" id="cpAlign" min="-100" max="100" step="1" value="-100" oninput="document.getElementById('valCpAlign').innerText=this.value+'%';rebuild()"><span id="valCpAlign">-100%</span></div>
+            <div class="sr"><label>C/P Flip</label><input type="checkbox" id="cpFlip" onchange="rebuild()" style="width:auto;flex:0"><span style="font-size:9px;color:#666;flex:1">flat edges to outside</span></div>
+        </div>
+
+        <!-- PER-SIDE TRANSFORMS (added) : Feature 1 panel -->
+        <div class="cg" id="psPanel">
+            <div class="hdr" style="cursor:pointer"><span id="psArrow">&#9662;</span> Per-Side Transforms <span style="color:#666;font-size:8px">(calls vs puts)</span></div>
+            <div id="psBody">
+                <div class="sr"><label>Enable</label><input type="checkbox" id="psEnable" onchange="togglePerSide(this.checked)" style="width:auto;flex:0"><span style="font-size:9px;color:#666;flex:1">split into independent clouds</span></div>
+                <div class="sr"><label style="color:#8af">Calls</label>
+                    <div class="btn-row" style="flex:1">
+                        <button id="psCallx" onclick="toggleSideFlip('call','x')" title="Flip CALLS along X">&#11020; X</button>
+                        <button id="psCally" onclick="toggleSideFlip('call','y')" title="Flip CALLS along Y">&#11021; Y</button>
+                        <button id="psCallz" onclick="toggleSideFlip('call','z')" title="Flip CALLS along Z">&#11021; Z</button>
+                    </div>
+                </div>
+                <div class="sr"><label style="color:#f8a">Puts</label>
+                    <div class="btn-row" style="flex:1">
+                        <button id="psPutx" onclick="toggleSideFlip('put','x')" title="Flip PUTS along X">&#11020; X</button>
+                        <button id="psPuty" onclick="toggleSideFlip('put','y')" title="Flip PUTS along Y">&#11021; Y</button>
+                        <button id="psPutz" onclick="toggleSideFlip('put','z')" title="Flip PUTS along Z">&#11021; Z</button>
+                    </div>
+                </div>
+                <div class="btn-row" style="margin-top:3px">
+                    <button onclick="showSideSolo('both')">Both</button>
+                    <button onclick="showSideSolo('call')">Calls Only</button>
+                    <button onclick="showSideSolo('put')">Puts Only</button>
+                    <button onclick="resetSideFlips()">Reset Flips</button>
+                </div>
+                <div class="info">Mirror calls onto puts to test put-call symmetry.</div>
+            </div>
+        </div>
+
+        <!-- PER-SIDE TRANSFORMS (added) : Feature 2 panel (collapsed by default) -->
+        <div class="cg" id="shiftPanel">
+            <div class="hdr" style="cursor:pointer"><span id="shiftArrow">&#9656;</span> Position Shift <span style="color:#666;font-size:8px">(offset calls/puts)</span></div>
+            <div id="shiftBody">
+                <div class="sr"><label style="color:#8af">Calls X</label><input type="range" id="offCallx" min="-4" max="4" step="0.02" value="0" oninput="onOffset()"><span id="valOffCallx">0.00</span></div>
+                <div class="sr"><label style="color:#8af">Calls Y</label><input type="range" id="offCally" min="-4" max="4" step="0.02" value="0" oninput="onOffset()"><span id="valOffCally">0.00</span></div>
+                <div class="sr"><label style="color:#8af">Calls Z</label><input type="range" id="offCallz" min="-4" max="4" step="0.02" value="0" oninput="onOffset()"><span id="valOffCallz">0.00</span></div>
+                <div class="sr"><label style="color:#f8a">Puts X</label><input type="range" id="offPutx" min="-4" max="4" step="0.02" value="0" oninput="onOffset()"><span id="valOffPutx">0.00</span></div>
+                <div class="sr"><label style="color:#f8a">Puts Y</label><input type="range" id="offPuty" min="-4" max="4" step="0.02" value="0" oninput="onOffset()"><span id="valOffPuty">0.00</span></div>
+                <div class="sr"><label style="color:#f8a">Puts Z</label><input type="range" id="offPutz" min="-4" max="4" step="0.02" value="0" oninput="onOffset()"><span id="valOffPutz">0.00</span></div>
+                <div class="btn-row" style="margin-top:3px"><button onclick="resetOffsets()">Reset offsets</button></div>
+            </div>
+        </div>
+
+        <div class="cg">
+            <div class="hdr">Calculation</div>
+            <div class="sr"><label>Method</label>
+                <select id="selCalc" onchange="rebuild()" title="OI (open interest): raw open interest per strike × expiration for this date, calls/puts separate, from the per-contract OI archive. Horizontal axis = EXPIRATION term structure (each expiration is a column). Strike on the vertical, OI as height/colour (OI ≥ 0, sequential)."><option value="oi" selected>OI (open interest)</option></select>
+            </div>
+            <div class="sr"><label>Y axis</label><select id="selYAxis" onchange="rebuild()"><option value="strike" selected>Strike</option><option value="moneyness">Moneyness (K/S)</option><option value="logmon">Log-moneyness</option></select></div>
+            <div class="sr"><label>Norm</label>
+                <select id="selNorm" onchange="onNormChange()"><option value="none" selected>Raw</option><option value="row">Row-norm</option><option value="z">Z-score</option><option value="minmax">Min-max</option><option value="quantize">Quantize</option><option value="mulaw">&mu;-law</option><option value="gamma">Gamma</option><option value="rank">Rank</option><option value="slog">Signed-log</option><option value="rz">Robust-z</option><option value="pclip">Pctile-clip</option></select>
+            </div>
+            <div class="sr np" data-for="anynorm" style="display:none"><label>Blend t</label><input type="range" id="nBlend" min="0" max="1" step="0.02" value="1" oninput="rebuild()"><span id="valBlend">1.00</span></div>
+            <div class="sr np" data-for="quantize" style="display:none"><label>Levels</label><input type="range" id="nLevels" min="2" max="256" step="1" value="16" oninput="document.getElementById('valLevels').innerText=this.value;rebuild()"><span id="valLevels">16</span></div>
+            <div class="sr np" data-for="quantize" style="display:none"><label>Pre-norm</label><select id="nQPre" onchange="rebuild()"><option value="robust" selected>Robust mm</option><option value="minmax">Plain mm</option><option value="zscore">Z-score</option></select></div>
+            <div class="sr np" data-for="quantize" style="display:none"><label>Clip %</label><input type="range" id="nQLo" min="0" max="20" step="0.5" value="2" oninput="document.getElementById('valQClip').innerText=this.value+'/'+document.getElementById('nQHi').value;rebuild()"><input type="range" id="nQHi" min="80" max="100" step="0.5" value="98" oninput="document.getElementById('valQClip').innerText=document.getElementById('nQLo').value+'/'+this.value;rebuild()"><span id="valQClip">2/98</span></div>
+            <div class="sr np" data-for="quantize" style="display:none"><label>&mu;-law pre</label><input type="checkbox" id="nQMuLaw" onchange="rebuild()" style="width:auto"><input type="range" id="nQMu" min="1" max="512" step="1" value="255" oninput="document.getElementById('valQMu').innerText=this.value;rebuild()"><span id="valQMu">255</span></div>
+            <div class="sr np" data-for="mulaw" style="display:none"><label>&mu;</label><input type="range" id="nMu" min="1" max="512" step="1" value="255" oninput="document.getElementById('valMu').innerText=this.value;rebuild()"><span id="valMu">255</span></div>
+            <div class="sr np" data-for="gamma" style="display:none"><label>&gamma;</label><input type="range" id="nGamma" min="0.1" max="2" step="0.05" value="0.5" oninput="document.getElementById('valGamma').innerText=parseFloat(this.value).toFixed(2);rebuild()"><span id="valGamma">0.50</span></div>
+            <div class="sr np" data-for="minmax" style="display:none"><label>Min/Max</label><input type="text" id="nMmLo" value="-1" style="width:40px" oninput="rebuild()"><input type="text" id="nMmHi" value="1" style="width:40px" oninput="rebuild()"></div>
+            <div class="sr" style="align-items:flex-start"><label>Quant axes</label><div class="chip-grid" style="flex:1"><div class="chip" id="qAxX" onclick="toggleQAx('x')">X time</div><div class="chip" id="qAxY" onclick="toggleQAx('y')">Y strike</div><div class="chip" id="qAxZ" onclick="toggleQAx('z')">Z value</div></div></div>
+            <div class="sr" id="qrowX" style="display:none"><label>X levels</label><input type="range" id="qlx" min="2" max="256" step="1" value="16" oninput="setQLevel('x',this.value)"><span id="qlvx" style="width:26px">16</span><button id="syncx" onclick="toggleSync('x')" style="flex:0;padding:2px 7px">Sync</button></div>
+            <div class="sr" id="qrowY" style="display:none"><label>Y levels</label><input type="range" id="qly" min="2" max="256" step="1" value="16" oninput="setQLevel('y',this.value)"><span id="qlvy" style="width:26px">16</span><button id="syncy" onclick="toggleSync('y')" style="flex:0;padding:2px 7px">Sync</button></div>
+            <div class="sr" id="qrowZ" style="display:none"><label>Z levels</label><input type="range" id="qlz" min="2" max="256" step="1" value="16" oninput="setQLevel('z',this.value)"><span id="qlvz" style="width:26px">16</span><button id="syncz" onclick="toggleSync('z')" style="flex:0;padding:2px 7px">Sync</button></div>
+            <div class="sr"><label>Cascade</label><input type="checkbox" id="casOn" onchange="rebuild()" style="width:auto;flex:0"><input type="text" id="casLevels" value="2,8,14" oninput="rebuild()" style="flex:1" title="residual successive-approximation; applies to the enabled Quant axes (X/Y/Z)"></div>
+            <div class="sr"><label></label><span class="chip-grid" style="flex:1;gap:3px"><span class="chip" onclick="setCascade('1,4,7')">1,4,7</span><span class="chip" onclick="setCascade('2,8,14')">2,8,14</span><span class="chip" onclick="setCascade('4,16,28')">4,16,28</span></span></div>
+            <div class="sr"><label>Thresh</label><input type="range" id="threshold" min="0" max="99" step="1" value="85" oninput="rebuild()"><span id="valThresh">85%</span></div>
+        </div>
+
+        <div class="cg">
+            <div class="hdr">Appearance</div>
+            <div class="sr"><label>Color</label>
+                <select id="selColor" onchange="rebuild()"><option value="magma">Magma</option><option value="viridis">Viridis</option><option value="inferno">Inferno</option><option value="plasma">Plasma</option><option value="turbo">Turbo</option><option value="gray">Grayscale</option><option value="uni_white">White (flat)</option><option value="uni_cyan">Cyan (flat)</option><option value="uni_amber">Amber (flat)</option><option value="uni_green" selected>Green (flat)</option></select>
+            </div>
+            <div class="sr"><label>BG</label>
+                <select id="selBg" onchange="updateBg()"><option value="0x050505" selected>Black</option><option value="0x1a1a2e">Dark Blue</option><option value="0xf0f0f0">Light</option></select>
+            </div>
+        </div>
+
+        <div class="cg">
+            <div class="hdr">Flipbook <span style="color:#666;font-size:8px">solo each row</span></div>
+            <div class="btn-row">
+                <button id="fbPlay" onclick="fbToggle()">&#9658; Play</button>
+                <button onclick="fbReset()" title="Show all rows again">All rows</button>
+            </div>
+            <div class="sr"><label>Axis</label><select id="fbAxis" onchange="fbSetAxis(this.value)"><option value="y" selected>Y &mdash; strike (rows)</option><option value="x">X &mdash; time (cols)</option><option value="z">Z &mdash; value (height)</option></select></div>
+            <div class="sr"><label>Sec/row</label><input type="range" id="fbDur" min="30" max="3000" step="10" value="200" oninput="document.getElementById('valFbDur').innerText=(this.value/1000).toFixed(2)+'s';fbRestart()"><span id="valFbDur">0.20s</span></div>
+            <div class="sr"><label>Row</label><input type="range" id="fbRow" min="0" max="0" step="1" value="0" oninput="fbScrub()"><span id="valFbRow">&mdash;</span></div>
+            <div class="sr"><label>Play range</label><input type="range" id="fbStart" min="0" max="0" step="1" value="0" oninput="fbRangeChg()"><input type="range" id="fbEnd" min="0" max="0" step="1" value="0" oninput="fbRangeChg()"><span id="fbRangeV" style="width:54px">0-0</span></div>
+            <div class="sr"><label>Onion &plusmn;</label><input type="range" id="fbOnion" min="0" max="20" step="1" value="0" oninput="document.getElementById('valFbOnion').innerText=this.value;rebuild()"><span id="valFbOnion">0</span></div>
+        </div>
+
+        <div class="cg" style="margin-bottom: 0;">
+            <div class="hdr">Export</div>
+            <div class="btn-row">
+                <button onclick="exportPNG(2)">PNG 2x</button>
+                <button onclick="exportPNG(4)">PNG 4x</button>
+                <button onclick="exportPNG(8)">PNG 8x</button>
+            </div>
+            <div class="btn-row" style="margin-top:3px">
+                <button id="vidBtn" onclick="exportFlipbookVideo()">&#9658; Export flipbook video (.webm)</button>
+            </div>
+        </div>
+
+        <div class="cg" style="margin-bottom: 0;">
+            <div class="hdr">Saved Views <span style="color:#666;font-size:8px">Click=load · Shift+Click=save</span></div>
+            <div class="btn-row" id="presetRow1"></div>
+            <div class="btn-row" id="presetRow2"></div>
+            <div class="sr" style="margin-top:4px"><label>Transition</label><input type="range" id="transSpeed" min="0" max="5000" step="50" value="500"><span id="valTrans">500ms</span></div>
+            <div class="btn-row" style="margin-top:3px">
+                <button onclick="exportPresets()" title="Copy all presets to clipboard as JSON">Export Views</button>
+                <button onclick="importPresets()" title="Paste JSON to import saved views">Import Views</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var META = window.__AD[window.__DI].META;
+
+        var STRIKE_RES = META.strike_res;
+        var TIME_RES = META.time_res;
+
+        // Date dropdown
+        (function() {
+            var sel = document.getElementById('selDate');
+            window.__AD_DATES.forEach(function(d) {
+                var opt = document.createElement('option');
+                opt.value = d; opt.text = d;
+                if(d === META.date) opt.selected = true;
+                sel.appendChild(opt);
+            });
+        })();
+        function switchDate(d){ if(window.__AD[d]){ __switchDateSync(d); } else { ensureLoaded(d, function(){ if(window.__AD[d]) __switchDateSync(d); }); } }
+        function __switchDateSync(d) {
+            window.__DI = d;
+            META = window.__AD[d].META;
+            GRID_DATA = window.__AD[d].GRID_DATA;
+            STRIKE_RES = META.strike_res;
+            TIME_RES = META.time_res;
+            GRIDS = {};
+            activeExps = new Set();
+            buildExpChips();
+            // default: all expirations selected every day; nothing else is reset.
+            META.expirations.forEach(function(e){ activeExps.add(e.key); });
+            document.querySelectorAll('#expGrid .chip').forEach(function(c){
+                c.classList.toggle('exp-active', activeExps.has(c.dataset.key));
+            });
+            var sel = document.getElementById('selDate'); if(sel) sel.value = d;
+            if(window.syncDayflip) window.syncDayflip(d);
+            try { fbInit(); } catch(e){}
+            rebuild();
+        }
+
+        // ===== Quantization-palette normalization (ported from explorer.html normRow) =====
+        // ===== Flipbook: solo each strike-row in turn (+ onion-skin) =====
+        var soloRow = -1, fbActive = false, fbTimer = null, fbRowIdx = 0, fbAxis = 'y';
+        function fbAxisLen() { return fbAxis === 'x' ? TIME_RES : fbAxis === 'z' ? 120 : STRIKE_RES; }
+        function fbInit() { var mx=Math.max(0,fbAxisLen()-1); var s=document.getElementById('fbRow'); if(s) s.max=mx; var a=document.getElementById('fbStart'),b=document.getElementById('fbEnd'); if(a){a.max=mx;} if(b){b.max=mx; b.value=mx;} var lab=document.getElementById('fbRangeV'); if(lab) lab.innerText='0-'+mx; }
+        function fbRangeChg(){ var a=document.getElementById('fbStart'),b=document.getElementById('fbEnd'); if(!a||!b) return; var s=parseInt(a.value)||0,e=parseInt(b.value)||0; if(s>e){var t=s;s=e;e=t;} var lab=document.getElementById('fbRangeV'); if(lab) lab.innerText=s+'-'+e; }
+        function fbLabel(i) { if (fbAxis === 'y') return (META.strikes && META.strikes[i] != null) ? META.strikes[i] : i; if (fbAxis === 'x') return (i / TIME_RES * 390).toFixed(0) + 'm'; return 'z' + i; }
+        function fbStep() {
+            if (!fbActive) return;
+            soloRow = fbRowIdx;
+            var s = document.getElementById('fbRow'); if (s) s.value = fbRowIdx;
+            document.getElementById('valFbRow').innerText = fbLabel(fbRowIdx);
+            rebuild();
+            var dur = parseInt(document.getElementById('fbDur').value) || 200;
+            var _fs=parseInt((document.getElementById('fbStart')||{value:0}).value)||0;
+            var _fe=parseInt((document.getElementById('fbEnd')||{value:String(fbAxisLen()-1)}).value); if(isNaN(_fe)) _fe=fbAxisLen()-1;
+            if(_fs>_fe){ var _tt=_fs; _fs=_fe; _fe=_tt; }
+            fbRowIdx = fbRowIdx + 1; if(fbRowIdx>_fe || fbRowIdx<_fs) fbRowIdx=_fs;
+            fbTimer = setTimeout(fbStep, dur);
+        }
+        function fbToggle() {
+            fbActive = !fbActive;
+            document.getElementById('fbPlay').innerHTML = fbActive ? '&#10074;&#10074; Pause' : '&#9658; Play';
+            if (fbActive) { if (soloRow >= 0) fbRowIdx = soloRow; fbStep(); }
+            else if (fbTimer) { clearTimeout(fbTimer); fbTimer = null; }
+        }
+        function fbRestart() { if (fbActive && fbTimer) { clearTimeout(fbTimer); fbStep(); } }
+        function fbScrub() {
+            fbActive = false; if (fbTimer) { clearTimeout(fbTimer); fbTimer = null; }
+            document.getElementById('fbPlay').innerHTML = '&#9658; Play';
+            fbRowIdx = parseInt(document.getElementById('fbRow').value) || 0;
+            soloRow = fbRowIdx;
+            document.getElementById('valFbRow').innerText = fbLabel(fbRowIdx);
+            rebuild();
+        }
+        function fbReset() {
+            fbActive = false; if (fbTimer) { clearTimeout(fbTimer); fbTimer = null; }
+            document.getElementById('fbPlay').innerHTML = '&#9658; Play';
+            soloRow = -1; document.getElementById('valFbRow').innerText = '\u2014'; rebuild();
+        }
+
+        function fbSetAxis(a) {
+            fbActive = false; if (fbTimer) { clearTimeout(fbTimer); fbTimer = null; }
+            document.getElementById('fbPlay').innerHTML = '&#9658; Play';
+            fbAxis = a; fbRowIdx = 0; soloRow = -1;
+            var s = document.getElementById('fbRow'); var mx=Math.max(0,fbAxisLen()-1); if (s) { s.max = mx; s.value = 0; } var a=document.getElementById('fbStart'),b=document.getElementById('fbEnd'); if(a){a.max=mx;a.value=0;} if(b){b.max=mx;b.value=mx;} var lab=document.getElementById('fbRangeV'); if(lab) lab.innerText='0-'+mx;
+            document.getElementById('valFbRow').innerText = '\u2014';
+            rebuild();
+        }
+
+        var QNorm = (function () {
+            function pctl(s, p) {
+                if (s.length === 0) return 0;
+                var idx = Math.min(s.length - 1, Math.max(0, p * (s.length - 1)));
+                var lo = Math.floor(idx), hi = Math.ceil(idx), w = idx - lo;
+                return s[lo] * (1 - w) + s[hi] * w;
+            }
+            function muLaw(z, m) { m = Math.max(m, 1e-6); var lg = Math.log1p(m);
+                return Math.sign(z) * Math.log1p(m * Math.abs(z)) / lg; }
+            function normRow(x, S) {
+                var type = S.normType, t = (S.t == null ? 1 : S.t), n = x.length, i;
+                if (type === 'raw' || t <= 0) return Float32Array.from(x);
+                var mu = 0; for (i = 0; i < n; i++) mu += x[i]; mu /= n;
+                var v = 0; for (i = 0; i < n; i++) { var d = x[i] - mu; v += d * d; }
+                var sd = Math.sqrt(v / n) + 1e-9;
+                if (S.anchorZero) { mu = 0; var _v0 = 0; for (i = 0; i < n; i++) _v0 += x[i] * x[i]; sd = Math.sqrt(_v0 / n) + 1e-9; }
+                if (type === 'partial') { var dn = Math.pow(sd, t), o = new Float32Array(n);
+                    for (i = 0; i < n; i++) o[i] = (x[i] - t * mu) / dn; return o; }
+                var F = new Float32Array(n);
+                if (type === 'z') { for (i = 0; i < n; i++) F[i] = (x[i] - mu) / sd; }
+                else if (type === 'minmax') { var mn = Infinity, mx = -Infinity;
+                    for (i = 0; i < n; i++) { if (x[i] < mn) mn = x[i]; if (x[i] > mx) mx = x[i]; }
+                    var rg = (mx - mn) || 1e-9, lo = S.anchorZero ? 0 : S.mmLo, hi = S.anchorZero ? 1 : S.mmHi;
+                    for (i = 0; i < n; i++) F[i] = lo + (x[i] - mn) / rg * (hi - lo); }
+                else if (type === 'mulaw') { var m_ = Math.max(S.muLaw, 1e-6), lg = Math.log1p(m_);
+                    for (i = 0; i < n; i++) { var z = (x[i] - mu) / sd; F[i] = Math.sign(z) * Math.log1p(m_ * Math.abs(z)) / lg; } }
+                else if (type === 'gamma') { var g = S.gammaP;
+                    for (i = 0; i < n; i++) { var z2 = (x[i] - mu) / sd; F[i] = Math.sign(z2) * Math.pow(Math.abs(z2), g); } }
+                else if (type === 'rank') {
+                    var ord = Array.from({ length: n }, function (_, k) { return k; }).sort(function (a, b) { return x[a] - x[b]; });
+                    for (var k = 0; k < n; k++) F[ord[k]] = n > 1 ? (2 * k / (n - 1) - 1) : 0; }
+                else if (type === 'quantize') {
+                    var L = Math.max(2, S.levels | 0), pre = S.anchorZero ? 'zscore' : (S.qPre || 'zscore'), z3 = new Float32Array(n);
+                    if (pre === 'zscore') { for (i = 0; i < n; i++) z3[i] = (x[i] - mu) / sd; }
+                    else { var plo, phi;
+                        if (pre === 'robust') { var ss = Array.prototype.slice.call(x).sort(function (a, b) { return a - b; });
+                            plo = pctl(ss, S.qLo == null ? 0.02 : S.qLo); phi = pctl(ss, S.qHi == null ? 0.98 : S.qHi); }
+                        else { plo = Infinity; phi = -Infinity; for (i = 0; i < n; i++) { if (x[i] < plo) plo = x[i]; if (x[i] > phi) phi = x[i]; } }
+                        var prg = (phi - plo) || 1e-9;
+                        for (i = 0; i < n; i++) { var u = (x[i] - plo) / prg; if (u < 0) u = 0; else if (u > 1) u = 1; z3[i] = u * 2 - 1; } }
+                    if (S.qMuLaw) { var mm = Math.max(S.qMu == null ? 255 : S.qMu, 1e-6); for (i = 0; i < n; i++) z3[i] = muLaw(z3[i], mm); }
+                    var zmn = Infinity, zmx = -Infinity; for (i = 0; i < n; i++) { if (z3[i] < zmn) zmn = z3[i]; if (z3[i] > zmx) zmx = z3[i]; }
+                    var zrg = (zmx - zmn) || 1e-9;
+                    for (i = 0; i < n; i++) { var q = Math.round((z3[i] - zmn) / zrg * (L - 1)); F[i] = zmn + q / (L - 1) * zrg; } }
+                else if (type === 'slog') { for (i = 0; i < n; i++) { var _d=x[i]-mu; F[i]=Math.sign(_d)*Math.log1p(Math.abs(_d)); } }
+                else if (type === 'rz') { var _srt=Array.prototype.slice.call(x).sort(function(a,b){return a-b;}); var _med=_srt[n>>1]; var _dev=new Float32Array(n); for (i=0;i<n;i++) _dev[i]=Math.abs(x[i]-_med); var _ds=Array.prototype.slice.call(_dev).sort(function(a,b){return a-b;}); var _mad=_ds[n>>1]||1e-9; for (i=0;i<n;i++) F[i]=(x[i]-_med)/(1.4826*_mad); }
+                else if (type === 'pclip') { var _s2=Array.prototype.slice.call(x).sort(function(a,b){return a-b;}); var _lo2=pctl(_s2,0.02), _hi2=pctl(_s2,0.98), _rg2=(_hi2-_lo2)||1e-9; for (i=0;i<n;i++){ var _u2=(x[i]-_lo2)/_rg2; if(_u2<0)_u2=0; else if(_u2>1)_u2=1; F[i]=_u2*2-1; } }
+                else { for (i = 0; i < n; i++) F[i] = (x[i] - mu) / sd; }
+                var out = new Float32Array(n);
+                for (i = 0; i < n; i++) out[i] = (1 - t) * x[i] + t * F[i];
+                return out;
+            }
+            return { normRow: normRow };
+        })();
+        function updateNormParams() {
+            var sel = document.getElementById('selNorm'); if (!sel) return;
+            var vv = sel.value, rows = document.querySelectorAll('.np');
+            for (var i = 0; i < rows.length; i++) {
+                var f = rows[i].getAttribute('data-for');
+                var show = (f === vv) || (f === 'anynorm' && vv !== 'none' && vv !== 'row');
+                rows[i].style.display = show ? 'flex' : 'none';
+            }
+        }
+        function onNormChange() { updateNormParams(); rebuild(); }
+
+        function decodeGrid(b64) {
+            var bin = atob(b64);
+            var bytes = new Uint8Array(bin.length);
+            for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+            return new Float32Array(bytes.buffer);
+        }
+        function decodePalette(b64) {
+            var bin = atob(b64);
+            var bytes = new Uint8Array(bin.length);
+            for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+            return new Float32Array(bytes.buffer);
+        }
+
+var GRID_DATA = window.__AD[window.__DI].GRID_DATA;
+
+var PAL_DATA = {
+  "magma": "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",
+  "viridis": "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",
+  "inferno": "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",
+  "plasma": "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",
+  "turbo": "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",
+  "gray": "AAAAAAAAAAAAAAAAgYCAO4GAgDuBgIA7gYAAPIGAADyBgAA8wcBAPMHAQDzBwEA8gYCAPIGAgDyBgIA8oaCgPKGgoDyhoKA8wcDAPMHAwDzBwMA84eDgPOHg4Dzh4OA8gYAAPYGAAD2BgAA9kZAQPZGQED2RkBA9oaAgPaGgID2hoCA9sbAwPbGwMD2xsDA9wcBAPcHAQD3BwEA90dBQPdHQUD3R0FA94eBgPeHgYD3h4GA98fBwPfHwcD3x8HA9gYCAPYGAgD2BgIA9iYiIPYmIiD2JiIg9kZCQPZGQkD2RkJA9mZiYPZmYmD2ZmJg9oaCgPaGgoD2hoKA9qaioPamoqD2pqKg9sbCwPbGwsD2xsLA9ubi4Pbm4uD25uLg9wcDAPcHAwD3BwMA9ycjIPcnIyD3JyMg90dDQPdHQ0D3R0NA92djYPdnY2D3Z2Ng94eDgPeHg4D3h4OA96ejoPeno6D3p6Og98fDwPfHw8D3x8PA9+fj4Pfn4+D35+Pg9gYAAPoGAAD6BgAA+hYQEPoWEBD6FhAQ+iYgIPomICD6JiAg+jYwMPo2MDD6NjAw+kZAQPpGQED6RkBA+lZQUPpWUFD6VlBQ+mZgYPpmYGD6ZmBg+nZwcPp2cHD6dnBw+oaAgPqGgID6hoCA+paQkPqWkJD6lpCQ+qagoPqmoKD6pqCg+rawsPq2sLD6trCw+sbAwPrGwMD6xsDA+tbQ0PrW0ND61tDQ+ubg4Prm4OD65uDg+vbw8Pr28PD69vDw+wcBAPsHAQD7BwEA+xcREPsXERD7FxEQ+ychIPsnISD7JyEg+zcxMPs3MTD7NzEw+0dBQPtHQUD7R0FA+1dRUPtXUVD7V1FQ+2dhYPtnYWD7Z2Fg+3dxcPt3cXD7d3Fw+4eBgPuHgYD7h4GA+5eRkPuXkZD7l5GQ+6ehoPunoaD7p6Gg+7exsPu3sbD7t7Gw+8fBwPvHwcD7x8HA+9fR0PvX0dD719HQ++fh4Pvn4eD75+Hg+/fx8Pv38fD79/Hw+gYCAPoGAgD6BgIA+g4KCPoOCgj6DgoI+hYSEPoWEhD6FhIQ+h4aGPoeGhj6HhoY+iYiIPomIiD6JiIg+i4qKPouKij6Lioo+jYyMPo2MjD6NjIw+j46OPo+Ojj6Pjo4+kZCQPpGQkD6RkJA+k5KSPpOSkj6TkpI+lZSUPpWUlD6VlJQ+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",
+};
+
+        // Lazy-decode grids on first access
+        var GRIDS = {};
+        function getGrid(key) {
+            if(!GRIDS[key] && GRID_DATA[key]){ var _g; if(key.indexOf('_flow')>=0){ var _fb=atob(GRID_DATA[key]); var _fu=new Uint8Array(_fb.length); for(var _fi=0;_fi<_fb.length;_fi++)_fu[_fi]=_fb.charCodeAt(_fi); var _fdv=new DataView(_fu.buffer); var _fn=_fdv.getInt32(0,true); var _fg=new Float32Array(STRIKE_RES*TIME_RES); var _fio=4,_fvo=4+_fn*4; for(var _fk=0;_fk<_fn;_fk++){ _fg[_fdv.getUint32(_fio+_fk*4,true)]=_fdv.getFloat32(_fvo+_fk*4,true); } GRIDS[key]=_fg; return GRIDS[key]; } _g=decodeGrid(GRID_DATA[key]); if(key.indexOf('_oi')>=0 && _g.length===STRIKE_RES){ var _ek=key.split('_')[0]; var _ne=META.expirations.length,_ei=-1; for(var _q=0;_q<_ne;_q++){ if(META.expirations[_q].key===_ek){_ei=_q;break;} } var _col=(_ne>1&&_ei>=0)?Math.round(_ei*(TIME_RES-1)/(_ne-1)):(TIME_RES>>1); var _e=new Float32Array(STRIKE_RES*TIME_RES); for(var _r=0;_r<STRIKE_RES;_r++)_e[_r*TIME_RES+_col]=_g[_r]; _g=_e; } GRIDS[key]=_g; }
+            return GRIDS[key];
+        }
+
+        var PALETTES = {};
+        for(var pn in PAL_DATA) PALETTES[pn] = decodePalette(PAL_DATA[pn]);
+
+        // ===== EXPIRATION UI =====
+        var activeExps = new Set();
+        // Day-flip default: select ALL expirations so the full OI surface shows
+        META.expirations.forEach(function(e){ activeExps.add(e.key); });
+
+        var expGrid = document.getElementById('expGrid');
+        function buildExpChips() {
+        expGrid.innerHTML = '';
+        META.expirations.forEach(function(e) {
+            var chip = document.createElement('div');
+            chip.className = 'chip' + (activeExps.has(e.key) ? ' exp-active' : '');
+            chip.dataset.key = e.key;
+            chip.dataset.label = e.label;
+            chip.innerHTML = '<b>' + e.label + '</b> ' + e.exp + ' <span style="color:#444">' + (e.rows/1e6).toFixed(1) + 'M</span>';
+            chip.onclick = function() {
+                if(activeExps.has(e.key)) { activeExps.delete(e.key); chip.classList.remove('exp-active'); }
+                else { activeExps.add(e.key); chip.classList.add('exp-active'); }
+                rebuild();
+            };
+            expGrid.appendChild(chip);
+        });
+        }
+        buildExpChips();
+
+        function selectExpGroup(label) {
+            activeExps.clear();
+            document.querySelectorAll('#expGrid .chip').forEach(function(c) {
+                if(label === 'ALL' || c.dataset.label === label) {
+                    activeExps.add(c.dataset.key);
+                    c.classList.add('exp-active');
+                } else {
+                    c.classList.remove('exp-active');
+                }
+            });
+            rebuild();
+        }
+
+        // ===== EXCHANGE UI =====
+        var activeExchange = 'all';
+        var exchGrid = document.getElementById('exchGrid');
+        META.exchanges.forEach(function(ex) {
+            var chip = document.createElement('div');
+            chip.className = 'chip' + (ex.id === 'all' ? ' active' : '');
+            chip.dataset.id = ex.id;
+            chip.innerHTML = ex.name + ' <span style="color:#444">' + (ex.count/1e6).toFixed(1) + 'M</span>';
+            chip.onclick = function() {
+                document.querySelectorAll('#exchGrid .chip').forEach(function(c){c.classList.remove('active');});
+                chip.classList.add('active');
+                activeExchange = ex.id;
+                rebuild();
+            };
+            exchGrid.appendChild(chip);
+        });
+
+        // ===== SVD =====
+        function computeSVDResidual(grid, rows, cols, k) {
+            var result = new Float32Array(grid.length);
+            result.set(grid);
+            for(var comp=0; comp<k; comp++) {
+                var v = new Float32Array(cols);
+                for(var j=0;j<cols;j++) v[j] = Math.random()-0.5;
+                var norm = 0; for(var j=0;j<cols;j++) norm += v[j]*v[j]; norm = Math.sqrt(norm);
+                for(var j=0;j<cols;j++) v[j] /= norm;
+                var u = new Float32Array(rows);
+                for(var iter=0; iter<20; iter++) {
+                    for(var i=0;i<rows;i++) { u[i]=0; for(var j=0;j<cols;j++) u[i] += result[i*cols+j]*v[j]; }
+                    norm=0; for(var i=0;i<rows;i++) norm+=u[i]*u[i]; norm=Math.sqrt(norm);
+                    if(norm<1e-10) break; for(var i=0;i<rows;i++) u[i]/=norm;
+                    for(var j=0;j<cols;j++) { v[j]=0; for(var i=0;i<rows;i++) v[j] += result[i*cols+j]*u[i]; }
+                    norm=0; for(var j=0;j<cols;j++) norm+=v[j]*v[j]; norm=Math.sqrt(norm);
+                    if(norm<1e-10) break; for(var j=0;j<cols;j++) v[j]/=norm;
+                }
+                var sigma=0;
+                for(var i=0;i<rows;i++) for(var j=0;j<cols;j++) sigma+=u[i]*result[i*cols+j]*v[j];
+                for(var i=0;i<rows;i++) for(var j=0;j<cols;j++) result[i*cols+j]-=sigma*u[i]*v[j];
+            }
+            return result;
+        }
+
+        // ===== THREE.JS =====
+        var scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x050505);
+        var aspect = window.innerWidth / window.innerHeight;
+        var d = 4;
+        var camera = new THREE.OrthographicCamera(-d*aspect, d*aspect, d, -d, 0.1, 1000);
+        camera.position.z = 20;
+        var renderer = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('plot').appendChild(renderer.domElement);
+        var geometry = new THREE.BufferGeometry();
+        var material = new THREE.PointsMaterial({ size: 2, vertexColors: true, sizeAttenuation: false });
+        var pointsObj = new THREE.Points(geometry, material);
+        // Mirror clone for 'both' symmetry mode
+        var mirrorGeometry = new THREE.BufferGeometry();
+        var mirrorMaterial = new THREE.PointsMaterial({ size: 2, vertexColors: true, sizeAttenuation: false });
+        var mirrorObj = new THREE.Points(mirrorGeometry, mirrorMaterial);
+        mirrorObj.visible = false;
+        var nullObject = new THREE.Group();
+        nullObject.add(pointsObj);
+        nullObject.add(mirrorObj);
+        scene.add(nullObject);
+        // Mirror state: 0=normal, 1=flip, 2=both
+        var mirrorState = {x:0, y:0, z:0};
+
+        // ===== PER-SIDE TRANSFORMS (added) : per-side state + point clouds =====
+        var perSideActive = false;
+        var sideShow = {call:true, put:true};
+        var sideFlip = {call:{x:false,y:false,z:false}, put:{x:false,y:false,z:false}};
+        var sideOffset = {call:{x:0,y:0,z:0}, put:{x:0,y:0,z:0}};
+        var callsGeometry = new THREE.BufferGeometry();
+        var callsMaterial = new THREE.PointsMaterial({ size: 2, vertexColors: true, sizeAttenuation: false });
+        var callsObj = new THREE.Points(callsGeometry, callsMaterial);
+        callsObj.visible = false;
+        var putsGeometry = new THREE.BufferGeometry();
+        var putsMaterial = new THREE.PointsMaterial({ size: 2, vertexColors: true, sizeAttenuation: false });
+        var putsObj = new THREE.Points(putsGeometry, putsMaterial);
+        putsObj.visible = false;
+        nullObject.add(callsObj);
+        nullObject.add(putsObj);
+
+        // ===== REBUILD =====
+        function rebuild() {
+            var right = document.getElementById('selRight').value;
+            var putDir = document.getElementById('selPutDir').value;
+            var callDir = document.getElementById('selCallDir').value;
+            var calc = document.getElementById('selCalc').value;
+            var normMode = document.getElementById('selNorm').value;
+            var thresh = parseInt(document.getElementById('threshold').value);
+            var palName = document.getElementById('selColor').value;
+            document.getElementById('valThresh').innerText = thresh + '%';
+
+            var gridKey = calc === 'svd' ? 'density' : calc;
+            var combined = new Float32Array(STRIKE_RES * TIME_RES);
+            var putSign = (putDir === 'invert') ? -1 : 1;
+            var callSign = (callDir === 'invert') ? -1 : 1;
+            var expCount = 0;
+
+            // Sum selected expirations
+            activeExps.forEach(function(expKey) {
+                // Use exchange-specific if available, otherwise expiration-level
+                var prefix = (activeExchange !== 'all' && getGrid(activeExchange + '_call_' + gridKey)) ? activeExchange : expKey;
+                // For per-exchange, we only have combined (not per-exp), so use it
+                if(activeExchange !== 'all' && calc!=='oi' && calc!=='flow') prefix = activeExchange;
+
+                var callG = getGrid(prefix + '_call_' + gridKey);
+                var putG = getGrid(prefix + '_put_' + gridKey);
+                if(!callG) return;
+
+                var _place=document.getElementById('selCPPlace').value;
+                var _mC=(_place==='mirrorCalls'||_place==='mirrorBoth'), _mP=(_place==='mirrorPuts'||_place==='mirrorBoth');
+                if(right==='calls'||right==='both'){
+                    if(_mC){ for(var rr=0;rr<STRIKE_RES;rr++){var tr=(STRIKE_RES-1-rr)*TIME_RES, sr=rr*TIME_RES; for(var cc=0;cc<TIME_RES;cc++) combined[tr+cc]+=callG[sr+cc]*callSign; } }
+                    else { for(var i=0;i<combined.length;i++) combined[i]+=callG[i]*callSign; }
+                }
+                if(right==='puts'||right==='both'){
+                    if(_mP){ for(var rr=0;rr<STRIKE_RES;rr++){var tr=(STRIKE_RES-1-rr)*TIME_RES, sr=rr*TIME_RES; for(var cc=0;cc<TIME_RES;cc++) combined[tr+cc]+=putG[sr+cc]*putSign; } }
+                    else { for(var i=0;i<combined.length;i++) combined[i]+=putG[i]*putSign; }
+                }
+                expCount++;
+            });
+
+            // If exchange is selected, use exchange data (single grid, not per-exp)
+            if(activeExchange !== 'all') expCount = 1;
+
+            if(calc === 'svd') combined = computeSVDResidual(combined, STRIKE_RES, TIME_RES, 3);
+
+            if(normMode === 'row') {
+                for(var r=0;r<STRIKE_RES;r++) {
+                    var mx=0; for(var c=0;c<TIME_RES;c++) mx=Math.max(mx,Math.abs(combined[r*TIME_RES+c]));
+                    if(mx>0) for(var c=0;c<TIME_RES;c++) combined[r*TIME_RES+c]/=mx;
+                }
+            } else if(normMode !== 'none') {
+                var QS = {
+                    normType: normMode,
+                    t: parseFloat(document.getElementById('nBlend').value),
+                    mmLo: parseFloat(document.getElementById('nMmLo').value),
+                    mmHi: parseFloat(document.getElementById('nMmHi').value),
+                    muLaw: parseFloat(document.getElementById('nMu').value),
+                    gammaP: parseFloat(document.getElementById('nGamma').value),
+                    levels: parseInt(document.getElementById('nLevels').value),
+                    qPre: document.getElementById('nQPre').value,
+                    qMuLaw: document.getElementById('nQMuLaw').checked,
+                    qMu: parseFloat(document.getElementById('nQMu').value),
+                    qLo: parseFloat(document.getElementById('nQLo').value)/100,
+                    qHi: parseFloat(document.getElementById('nQHi').value)/100
+                };
+                if(isNaN(QS.mmLo)) QS.mmLo=-1;
+                if(isNaN(QS.mmHi)) QS.mmHi=1;
+                if(normMode === 'minmax'){
+                    // Per-expiration-column min-max: scale each expiration's OI to [0,1]
+                    // over its strikes. A GLOBAL linear min-max is a visual no-op here
+                    // because the renderer already auto-scales height & colour by the
+                    // global range (_zc=combined/zRange, t=(combined-zMin)/zRange) — a
+                    // constant rescale cancels out. Per-column equalises expirations so
+                    // a thin far-dated wall reads as tall as the big near monthly.
+                    for(var _c=0;_c<TIME_RES;_c++){
+                        var _mx=0; for(var _r=0;_r<STRIKE_RES;_r++){ var _v=combined[_r*TIME_RES+_c]; if(_v>_mx)_mx=_v; }
+                        if(_mx>0){ for(var _r2=0;_r2<STRIKE_RES;_r2++) combined[_r2*TIME_RES+_c] /= _mx; }
+                    }
+                } else {
+                    // OI day-flip: normalize GLOBALLY (0-anchored), not per strike-row.
+                    QS.anchorZero = (calc === 'oi');
+                    var _gf = QNorm.normRow(combined, QS);
+                    for(var i=0;i<combined.length;i++) combined[i]=_gf[i];
+                }
+            }
+
+            var _cpA=(parseInt(document.getElementById('cpAlign').value)||0)/100;
+            var _cpMa=0; for(var i=0;i<combined.length;i++){var _a=Math.abs(combined[i]); if(_a>_cpMa)_cpMa=_a;}
+            var _cpFlip=document.getElementById('cpFlip')?document.getElementById('cpFlip').checked:false;
+            var absVals=new Float32Array(combined.length);
+            for(var i=0;i<combined.length;i++) absVals[i]=Math.abs(combined[i]);
+            var sorted=Array.from(absVals).sort(function(a,b){return a-b;});
+            var cutoff=sorted[Math.floor(sorted.length*thresh/100)];
+
+            var positions=[], colors=[];
+            var _qax={x:qAxOn.x,y:qAxOn.y,z:qAxOn.z}; var _qEff=function(a){ return Math.max(2,(syncAxis?qLevels[syncAxis]:qLevels[a])|0); };
+            var _casOn=document.getElementById('casOn')?document.getElementById('casOn').checked:false;
+            var _casLv=(document.getElementById('casLevels')?document.getElementById('casLevels').value:'').split(',').map(function(s){return parseInt(s)||0;}).filter(function(n){return n>=2;});
+            var _yax=(document.getElementById('selYAxis')||{value:'strike'}).value;
+            var _spot=(typeof META!=='undefined' && META.spot)?META.spot:0;
+            function _qsnap(v,lo,hi,L){ if(!(L>=2)) return v; var t=(v-lo)/((hi-lo)||1); t=Math.round(t*(L-1))/(L-1); return lo+t*(hi-lo); }
+            function _cascadeQ(v,lo,hi,arr){ if(!arr||!arr.length) return v; var c0=lo,c1=hi,q=v; for(var ci=0;ci<arr.length;ci++){ var L=Math.max(2,arr[ci]|0); var span=(c1-c0)||1; var t=(v-c0)/span; if(t<0)t=0; else if(t>1)t=1; var step=span/(L-1); var k=Math.round(t*(L-1)); q=c0+k*step; c0=q-step/2; c1=q+step/2; } return q; }
+            var _UNI={uni_white:[1,1,1],uni_cyan:[0.35,1,1],uni_amber:[1,0.78,0.25],uni_green:[0.45,1,0.45]}; var _uni=_UNI[palName]; var palette=PALETTES[palName]||PALETTES.magma;
+            var zMin=Infinity,zMax=-Infinity;
+            for(var i=0;i<combined.length;i++){if(combined[i]<zMin)zMin=combined[i];if(combined[i]>zMax)zMax=combined[i];}
+            var zRange=zMax-zMin;if(zRange===0)zRange=1;var _flow=(calc==='flow'),_fabs=1;if(_flow){var _fv=[];for(var _fi=0;_fi<combined.length;_fi++){var _fa=Math.abs(combined[_fi]);if(_fa>0)_fv.push(_fa);}_fv.sort(function(a,b){return a-b;});_fabs=_fv.length?_fv[Math.floor(_fv.length*0.98)]:1;if(!(_fabs>0))_fabs=1;}
+            var xM=TIME_RES/2,yM=STRIKE_RES/2,xS=3.0/(TIME_RES/2),yS=3.0/(STRIKE_RES/2);
+            var count=0;
+            var onionX = parseInt(document.getElementById('fbOnion').value) || 0;
+            var _bgHex = parseInt(document.getElementById('selBg').value) || 0;
+            var _br=((_bgHex>>16)&255)/255, _bgG=((_bgHex>>8)&255)/255, _bb=(_bgHex&255)/255;
+            var _axis=(typeof fbAxis!=='undefined')?fbAxis:'y';
+            var _NZ=120;
+            for(var row=0;row<STRIKE_RES;row++){
+                if(soloRow>=0 && _axis==='y' && Math.abs(row-soloRow)>onionX) continue;
+                for(var col=0;col<TIME_RES;col++){
+                    var idx=row*TIME_RES+col;
+                    if(Math.abs(combined[idx])<=cutoff) continue;
+                    var rowAlpha=1;
+                    if(soloRow>=0){
+                        var _coord = (_axis==='x') ? col : (_axis==='z') ? Math.round((combined[idx]-zMin)/zRange*(_NZ-1)) : row;
+                        var _dd=Math.abs(_coord-soloRow);
+                        if(_dd>onionX) continue;
+                        rowAlpha = onionX>0 ? (1 - _dd/(onionX+1)) : 1;
+                    }
+                    var _zc=combined[idx]/zRange*2.0;
+                    if(_cpFlip){ var _inner=cutoff/zRange*2.0, _outer=(_cpMa/zRange*2.0)||1; _zc=Math.sign(_zc)*(_inner+_outer)-_zc; }
+                    if(_cpA>0){ var _half=(_cpMa/zRange*2.0)||1; _zc=Math.sign(_zc)*Math.max(0,Math.abs(_zc)-_cpA*_half); }
+                    else if(_cpA<0){ _zc=_zc*(1-_cpA); }
+                    var _px=(col-xM)*xS, _pz=_zc, _py;
+                    if(_yax!=='strike' && _spot>0){ var _K=META.strikes[STRIKE_RES-1-row]; var _mny=(_K>0?_K/_spot:1); var _yv=(_yax==='logmon')?Math.log(_mny)*1.6:(_mny-1)*3.0; if(_yv<-3)_yv=-3; else if(_yv>3)_yv=3; _py=_yv; } else { _py=(row-yM)*yS; }
+                    if(_casOn){
+                        if(_qax.x) _px=_cascadeQ(_px,(0-xM)*xS,(TIME_RES-1-xM)*xS,_casLv);
+                        if(_qax.y) _py=_cascadeQ(_py,(0-yM)*yS,(STRIKE_RES-1-yM)*yS,_casLv);
+                        if(_qax.z) _pz=_cascadeQ(_pz,zMin/zRange*2.0,zMax/zRange*2.0,_casLv);
+                    } else {
+                        if(_qax.x) _px=_qsnap(_px,(0-xM)*xS,(TIME_RES-1-xM)*xS,_qEff('x'));
+                        if(_qax.y) _py=_qsnap(_py,(0-yM)*yS,(STRIKE_RES-1-yM)*yS,_qEff('y'));
+                        if(_qax.z) _pz=_qsnap(_pz,-2.0,2.0,_qEff('z'));
+                    }
+                    positions.push(_px,_py,_pz);
+                    var t=(combined[idx]-zMin)/zRange;
+                    var ci=Math.max(0,Math.min(255,Math.floor(t*255)));
+                    var _cr,_cg,_cb; if(_uni){ _cr=_uni[0]; _cg=_uni[1]; _cb=_uni[2]; } else { _cr=palette[ci*3]; _cg=palette[ci*3+1]; _cb=palette[ci*3+2]; }
+                    if(rowAlpha<1){ _cr=_br+(_cr-_br)*rowAlpha; _cg=_bgG+(_cg-_bgG)*rowAlpha; _cb=_bb+(_cb-_bb)*rowAlpha; }
+                    if(_flow){var _fc=combined[idx]/_fabs;if(_fc>1)_fc=1;else if(_fc<-1)_fc=-1;if(_fc>=0){_cr=1;_cg=1-0.85*_fc;_cb=1-0.95*_fc;}else{var _fm=-_fc;_cr=1-0.95*_fm;_cg=1-0.85*_fm;_cb=1;}}colors.push(_cr,_cg,_cb);
+                    count++;
+                }
+            }
+            geometry.setAttribute('position',new THREE.BufferAttribute(new Float32Array(positions),3));
+            geometry.setAttribute('color',new THREE.BufferAttribute(new Float32Array(colors),3));
+            geometry.computeBoundingSphere();
+
+            // Sync mirror clone if visible
+            if(mirrorObj.visible) {
+                mirrorGeometry.setAttribute('position', geometry.getAttribute('position'));
+                mirrorGeometry.setAttribute('color', geometry.getAttribute('color'));
+                mirrorGeometry.computeBoundingSphere();
+            }
+
+            var expNames=[]; activeExps.forEach(function(k){var e=META.expirations.find(function(x){return x.key===k;});if(e)expNames.push(e.label);});
+            var exchN=META.exchanges.find(function(e){return e.id===activeExchange;});
+            document.getElementById('statusBar').innerText = count.toLocaleString()+' pts | '+expNames.join('+')+' | '+(exchN?exchN.name:'')+' | '+(calc==='oi'?'OI raw open interest — X-axis = EXPIRATION term structure (not intraday time)':(calc==='flow'?'Order flow — signed options volume (Lee-Ready): red=net buying, blue=net selling':calc.toUpperCase()))+' | '+palName;
+        }
+
+        // ===== CAMERA =====
+        function updateRot(){
+            var rx=parseFloat(document.getElementById('rotX').value),ry=parseFloat(document.getElementById('rotY').value),rz=parseFloat(document.getElementById('rotZ').value),zoom=parseFloat(document.getElementById('camZoom').value);
+            document.getElementById('valXRot').innerHTML=rx.toFixed(1)+'°';document.getElementById('valYRot').innerHTML=ry.toFixed(1)+'°';document.getElementById('valZRot').innerHTML=rz.toFixed(1)+'°';document.getElementById('valZoom').innerHTML=zoom.toFixed(2)+'x';
+            nullObject.rotation.x=rx*Math.PI/180;nullObject.rotation.y=ry*Math.PI/180;nullObject.rotation.z=rz*Math.PI/180;
+            var sd=d/zoom;camera.left=-sd*aspect;camera.right=sd*aspect;camera.top=sd;camera.bottom=-sd;camera.updateProjectionMatrix();
+        }
+        function updateSize(){var s=parseFloat(document.getElementById('pointSize').value);document.getElementById('valSize').innerText=s.toFixed(1);material.size=s;mirrorMaterial.size=s;material.needsUpdate=true;mirrorMaterial.needsUpdate=true;}
+        function updateBg(){scene.background=new THREE.Color(parseInt(document.getElementById('selBg').value));}
+        function resetCam(x,y,z){document.getElementById('rotX').value=x;document.getElementById('rotY').value=y;document.getElementById('rotZ').value=z;document.getElementById('camZoom').value=1.0;nullObject.position.set(0,0,0);updateRot();}
+        /* ---- turntable: auto-rotate any combination of axes at a chosen speed (deg/sec) ---- */
+        var TT={x:false,y:false,z:false,speed:30}; var _ttLast=0;
+        function toggleTT(a){TT[a]=!TT[a];var el=document.getElementById('tt'+a.toUpperCase());if(el){el.style.background=TT[a]?'#2a6':'';el.style.color=TT[a]?'#fff':'';}_ttLast=0;}
+        function turntableStep(ts){
+            if(!(TT.x||TT.y||TT.z)){_ttLast=ts;return;}
+            if(!_ttLast){_ttLast=ts;return;}
+            var dt=(ts-_ttLast)/1000;_ttLast=ts;if(dt<=0||dt>0.5)return;
+            var step=TT.speed*dt;
+            function adv(id){var el=document.getElementById(id);var v=parseFloat(el.value)+step;while(v>180)v-=360;while(v<-180)v+=360;el.value=v.toFixed(1);}
+            if(TT.x)adv('rotX');if(TT.y)adv('rotY');if(TT.z)adv('rotZ');
+            updateRot();
+        }
+        function toggleMirror(axis){
+            // Cycle: 0 (normal) → 1 (flip) → 2 (both) → 0
+            mirrorState[axis] = (mirrorState[axis] + 1) % 3;
+            // Apply to main object scale
+            pointsObj.scale.x = (mirrorState.x === 1) ? -1 : 1;
+            pointsObj.scale.y = (mirrorState.y === 1) ? -1 : 1;
+            pointsObj.scale.z = (mirrorState.z === 1) ? -1 : 1;
+            // Show mirror clone if any axis is in 'both' mode
+            var anyBoth = (mirrorState.x===2||mirrorState.y===2||mirrorState.z===2);
+            mirrorObj.visible = anyBoth;
+            if(anyBoth) {
+                mirrorObj.scale.x = (mirrorState.x===2) ? -1 : 1;
+                mirrorObj.scale.y = (mirrorState.y===2) ? -1 : 1;
+                mirrorObj.scale.z = (mirrorState.z===2) ? -1 : 1;
+                // Sync geometry from main points
+                mirrorGeometry.setAttribute('position', geometry.getAttribute('position'));
+                mirrorGeometry.setAttribute('color', geometry.getAttribute('color'));
+                mirrorGeometry.computeBoundingSphere();
+            }
+            // Update button labels & styling
+            ['x','y','z'].forEach(function(a){
+                var btn = document.getElementById('mir'+a.toUpperCase());
+                var st = mirrorState[a];
+                var labels = {x:['⬌ X','⬌ X ⟲','⬌ X ⟷'], y:['⬍ Y','⬍ Y ⟲','⬍ Y ⟷'], z:['⬍ Z','⬍ Z ⟲','⬍ Z ⟷']};
+                btn.innerText = labels[a][st];
+                btn.style.background = st===0?'#222':st===1?'#1a1a3a':'#1a3a1a';
+                btn.style.borderColor = st===0?'#444':st===1?'#66f':'#0f0';
+                btn.style.color = st===0?'#fff':st===1?'#88f':'#0f0';
+            });
+        }
+        var qAxOn = {x:false, y:false, z:false};
+        var qLevels = {x:16, y:16, z:16};
+        var syncAxis = null;
+        function toggleQAx(a){
+            qAxOn[a]=!qAxOn[a];
+            var el=document.getElementById('qAx'+a.toUpperCase()); if(el) el.classList.toggle('active', qAxOn[a]);
+            var row=document.getElementById('qrow'+a.toUpperCase()); if(row) row.style.display = qAxOn[a] ? 'flex' : 'none';
+            updateSyncUI(); rebuild();
+        }
+        function setQLevel(a,v){
+            v=Math.max(2,parseInt(v)||16); qLevels[a]=v;
+            var s=document.getElementById('ql'+a); if(s) s.value=v;
+            var t=document.getElementById('qlv'+a); if(t) t.innerText=v;
+            if(syncAxis===a){ ['x','y','z'].forEach(function(b){ if(b!==a){ qLevels[b]=v; var sb=document.getElementById('ql'+b); if(sb) sb.value=v; var tb=document.getElementById('qlv'+b); if(tb) tb.innerText=v; } }); }
+            rebuild();
+        }
+        function updateSyncUI(){
+            var anySync=(syncAxis!==null);
+            ['x','y','z'].forEach(function(b){
+                var sb=document.getElementById('sync'+b), sl=document.getElementById('ql'+b);
+                var isMaster=(syncAxis===b);
+                if(sb){ sb.disabled=anySync && !isMaster; sb.style.borderColor=isMaster?'#0f0':'#444'; sb.style.color=isMaster?'#0f0':'#fff'; sb.style.opacity=sb.disabled?'0.4':'1'; sb.innerText=isMaster?'Synced':'Sync'; }
+                if(sl){ sl.disabled=anySync && !isMaster; sl.style.opacity=sl.disabled?'0.4':'1'; }
+            });
+        }
+        function setCascade(s){
+            var f=document.getElementById('casLevels'); if(f) f.value=s;
+            var c=document.getElementById('casOn'); if(c) c.checked=true;
+            if(typeof qAxOn!=='undefined' && !qAxOn.x && !qAxOn.y && !qAxOn.z){ toggleQAx('z'); }
+            else { rebuild(); }
+        }
+        function toggleSync(a){
+            syncAxis=(syncAxis===a)?null:a;
+            if(syncAxis){ var v=qLevels[a]; ['x','y','z'].forEach(function(b){ if(b!==a){ qLevels[b]=v; var s=document.getElementById('ql'+b); if(s) s.value=v; var t=document.getElementById('qlv'+b); if(t) t.innerText=v; } }); }
+            updateSyncUI(); rebuild();
+        }
+        function exportPNG(scale){
+            var dpr=renderer.getPixelRatio();
+            var capMax=(renderer.capabilities&&renderer.capabilities.maxTextureSize)?Math.min(16384,renderer.capabilities.maxTextureSize):8192;
+            var w=Math.round(window.innerWidth*scale), h=Math.round(window.innerHeight*scale);
+            var f=Math.min(1, capMax/Math.max(w,h)); w=Math.max(1,Math.floor(w*f)); h=Math.max(1,Math.floor(h*f));
+            var restore=function(){ renderer.setPixelRatio(dpr); renderer.setSize(window.innerWidth,window.innerHeight,false); if(camera.isPerspectiveCamera){ camera.aspect=window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); } renderer.render(scene,camera); };
+            renderer.setPixelRatio(1); renderer.setSize(w,h,false);
+            if(camera.isPerspectiveCamera){ camera.aspect=w/h; camera.updateProjectionMatrix(); }
+            renderer.render(scene,camera);
+            var name='pointcloud_'+scale+'x_'+Date.now()+'.png';
+            if(renderer.domElement.toBlob){
+                renderer.domElement.toBlob(function(blob){
+                    if(!blob){ restore(); alert('Export failed at '+scale+'x ('+w+'\u00d7'+h+'). Try a smaller multiplier.'); return; }
+                    var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.download=name; a.href=url; a.click();
+                    setTimeout(function(){URL.revokeObjectURL(url);},3000); restore();
+                }, 'image/png');
+            } else {
+                try { var a=document.createElement('a'); a.download=name; a.href=renderer.domElement.toDataURL('image/png'); a.click(); } catch(e){ alert('Export failed: '+e.message); }
+                restore();
+            }
+        }
+        function exportFlipbookVideo(){
+            if(typeof MediaRecorder==='undefined'){ alert('MediaRecorder not supported in this browser'); return; }
+            var btn=document.getElementById('vidBtn'); var n=fbAxisLen(); if(!n){ return; }
+            var dur=parseInt(document.getElementById('fbDur').value)||200;
+            var stream=renderer.domElement.captureStream(30);
+            var mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
+            var rec, chunks=[];
+            try { rec=new MediaRecorder(stream,{mimeType:mime, videoBitsPerSecond:16000000}); }
+            catch(e){ rec=new MediaRecorder(stream); }
+            rec.ondataavailable=function(e){ if(e.data && e.data.size) chunks.push(e.data); };
+            rec.onstop=function(){ var blob=new Blob(chunks,{type:'video/webm'}); var a=document.createElement('a');
+                a.href=URL.createObjectURL(blob); a.download='flipbook_'+(typeof META!=='undefined'?META.date:'')+'_'+Date.now()+'.webm'; a.click();
+                if(btn){ btn.innerHTML='\u25B6 Export flipbook video (.webm)'; btn.disabled=false; } fbReset(); };
+            var i=0; if(btn) btn.disabled=true; rec.start();
+            (function frame(){
+                if(i>=n){ setTimeout(function(){ rec.stop(); }, 250); return; }
+                soloRow=i; rebuild(); renderer.render(scene,camera);
+                if(btn) btn.innerHTML='Recording '+(i+1)+'/'+n+'\u2026';
+                i++; setTimeout(frame, dur);
+            })();
+        }
+
+        // ===== SAVED VIEWS =====
+        var PRESET_KEY = 'gme_3d_presets';
+        var savedViews = JSON.parse(localStorage.getItem(PRESET_KEY) || '{}');
+        var transAnim = null; // ongoing transition
+
+        function getCurrentState() {
+            return {
+                rotX: parseFloat(document.getElementById('rotX').value),
+                rotY: parseFloat(document.getElementById('rotY').value),
+                rotZ: parseFloat(document.getElementById('rotZ').value),
+                zoom: parseFloat(document.getElementById('camZoom').value),
+                ptSize: parseFloat(document.getElementById('pointSize').value),
+                posX: nullObject.position.x, posY: nullObject.position.y,
+                mirrorState: JSON.parse(JSON.stringify(mirrorState)),
+                selRight: document.getElementById('selRight').value,
+                selCallDir: document.getElementById('selCallDir').value,
+                selPutDir: document.getElementById('selPutDir').value,
+                selCalc: document.getElementById('selCalc').value,
+                selNorm: document.getElementById('selNorm').value,
+                threshold: parseInt(document.getElementById('threshold').value),
+                selColor: document.getElementById('selColor').value,
+                selBg: document.getElementById('selBg').value,
+                activeExps: Array.from(activeExps),
+                activeExchange: activeExchange
+            };
+        }
+
+        function applyStateInstant(s) {
+            document.getElementById('rotX').value = s.rotX;
+            document.getElementById('rotY').value = s.rotY;
+            document.getElementById('rotZ').value = s.rotZ;
+            document.getElementById('camZoom').value = s.zoom;
+            document.getElementById('pointSize').value = s.ptSize;
+            nullObject.position.x = s.posX || 0;
+            nullObject.position.y = s.posY || 0;
+            if(s.selRight) document.getElementById('selRight').value = s.selRight;
+            if(s.selCallDir) document.getElementById('selCallDir').value = s.selCallDir;
+            if(s.selPutDir) document.getElementById('selPutDir').value = s.selPutDir;
+            if(s.selCalc) document.getElementById('selCalc').value = s.selCalc;
+            if(s.selNorm) document.getElementById('selNorm').value = s.selNorm;
+            if(s.threshold !== undefined) document.getElementById('threshold').value = s.threshold;
+            if(s.selColor) document.getElementById('selColor').value = s.selColor;
+            if(s.selBg) { document.getElementById('selBg').value = s.selBg; updateBg(); }
+            if(s.mirrorState) {
+                mirrorState.x = s.mirrorState.x||0; mirrorState.y = s.mirrorState.y||0; mirrorState.z = s.mirrorState.z||0;
+                pointsObj.scale.x = (mirrorState.x===1)?-1:1; pointsObj.scale.y = (mirrorState.y===1)?-1:1; pointsObj.scale.z = (mirrorState.z===1)?-1:1;
+                var anyBoth = (mirrorState.x===2||mirrorState.y===2||mirrorState.z===2);
+                mirrorObj.visible = anyBoth;
+                if(anyBoth) { mirrorObj.scale.x=(mirrorState.x===2)?-1:1; mirrorObj.scale.y=(mirrorState.y===2)?-1:1; mirrorObj.scale.z=(mirrorState.z===2)?-1:1; }
+            }
+            if(s.activeExps) {
+                activeExps.clear(); s.activeExps.forEach(function(k){activeExps.add(k);});
+                document.querySelectorAll('#expGrid .chip').forEach(function(c){c.classList.toggle('exp-active',activeExps.has(c.dataset.key));});
+            }
+            if(s.activeExchange) {
+                activeExchange = s.activeExchange;
+                document.querySelectorAll('#exchGrid .chip').forEach(function(c){c.classList.toggle('active',c.dataset.id===activeExchange);});
+            }
+            updateRot(); updateSize(); rebuild();
+        }
+
+        function lerpTo(target, durationMs) {
+            if(transAnim) cancelAnimationFrame(transAnim);
+            if(durationMs <= 0) { applyStateInstant(target); return; }
+            var start = getCurrentState();
+
+            // Snapshot old geometry as a ghost that fades out
+            var ghostGeo = new THREE.BufferGeometry();
+            var oldPos = geometry.getAttribute('position');
+            var oldCol = geometry.getAttribute('color');
+            if(oldPos) ghostGeo.setAttribute('position', oldPos.clone());
+            if(oldCol) ghostGeo.setAttribute('color', oldCol.clone());
+            ghostGeo.computeBoundingSphere();
+            var ghostMat = new THREE.PointsMaterial({ size: material.size, vertexColors: true, sizeAttenuation: false, transparent: true, opacity: 1.0 });
+            var ghostPts = new THREE.Points(ghostGeo, ghostMat);
+            // Copy current scale from pointsObj
+            ghostPts.scale.copy(pointsObj.scale);
+            nullObject.add(ghostPts);
+
+            // Apply target toggles immediately so new geometry builds
+            material.transparent = true; material.opacity = 0.0; material.needsUpdate = true;
+            mirrorMaterial.transparent = true; mirrorMaterial.opacity = 0.0; mirrorMaterial.needsUpdate = true;
+            applyStateInstant(target);
+
+            var t0 = performance.now();
+            function step(now) {
+                var p = Math.min(1, (now - t0) / durationMs);
+                var ease = p < 0.5 ? 2*p*p : 1-Math.pow(-2*p+2,2)/2;
+                // Lerp camera
+                document.getElementById('rotX').value = start.rotX + (target.rotX - start.rotX) * ease;
+                document.getElementById('rotY').value = start.rotY + (target.rotY - start.rotY) * ease;
+                document.getElementById('rotZ').value = start.rotZ + (target.rotZ - start.rotZ) * ease;
+                document.getElementById('camZoom').value = start.zoom + (target.zoom - start.zoom) * ease;
+                document.getElementById('pointSize').value = start.ptSize + (target.ptSize - start.ptSize) * ease;
+                nullObject.position.x = (start.posX||0) + ((target.posX||0) - (start.posX||0)) * ease;
+                nullObject.position.y = (start.posY||0) + ((target.posY||0) - (start.posY||0)) * ease;
+                updateRot(); updateSize();
+                // Cross-fade: ghost out, new in
+                ghostMat.opacity = 1.0 - ease;
+                material.opacity = ease;
+                mirrorMaterial.opacity = ease;
+                ghostMat.size = parseFloat(document.getElementById('pointSize').value);
+                ghostMat.needsUpdate = true;
+                material.needsUpdate = true;
+                mirrorMaterial.needsUpdate = true;
+                if(p < 1) { transAnim = requestAnimationFrame(step); }
+                else {
+                    transAnim = null;
+                    // Cleanup ghost
+                    nullObject.remove(ghostPts);
+                    ghostGeo.dispose(); ghostMat.dispose();
+                    // Restore non-transparent materials
+                    material.transparent = false; material.opacity = 1.0; material.needsUpdate = true;
+                    mirrorMaterial.transparent = false; mirrorMaterial.opacity = 1.0; mirrorMaterial.needsUpdate = true;
+                }
+            }
+            transAnim = requestAnimationFrame(step);
+        }
+
+        function savePreset(idx) {
+            savedViews[idx] = getCurrentState();
+            localStorage.setItem(PRESET_KEY, JSON.stringify(savedViews));
+            refreshPresetButtons();
+        }
+
+        function loadPreset(idx) {
+            if(!savedViews[idx]) return;
+            var dur = parseInt(document.getElementById('transSpeed').value);
+            lerpTo(savedViews[idx], dur);
+        }
+
+        function refreshPresetButtons() {
+            for(var i=1;i<=10;i++) {
+                var btn = document.getElementById('preset'+i);
+                if(btn) {
+                    var saved = !!savedViews[i];
+                    btn.style.background = saved ? '#1a2a1a' : '#222';
+                    btn.style.borderColor = saved ? '#4a4' : '#444';
+                    btn.style.color = saved ? '#8f8' : '#666';
+                }
+            }
+        }
+
+        // Build preset buttons
+        for(var i=1;i<=5;i++) {
+            var btn = document.createElement('button');
+            btn.id = 'preset'+i; btn.innerText = i;
+            btn.dataset.idx = i;
+            btn.onclick = function(e) { if(e.shiftKey) savePreset(this.dataset.idx); else loadPreset(this.dataset.idx); };
+            document.getElementById('presetRow1').appendChild(btn);
+        }
+        for(var i=6;i<=10;i++) {
+            var btn = document.createElement('button');
+            btn.id = 'preset'+i; btn.innerText = i;
+            btn.dataset.idx = i;
+            btn.onclick = function(e) { if(e.shiftKey) savePreset(this.dataset.idx); else loadPreset(this.dataset.idx); };
+            document.getElementById('presetRow2').appendChild(btn);
+        }
+        refreshPresetButtons();
+
+        document.getElementById('transSpeed').oninput = function() {
+            document.getElementById('valTrans').innerText = this.value + 'ms';
+        };
+
+        function exportPresets() {
+            var json = JSON.stringify(savedViews, null, 2);
+            navigator.clipboard.writeText(json).then(function() {
+                document.getElementById('statusBar').innerText = 'Views copied to clipboard! (' + Object.keys(savedViews).length + ' saved)';
+            });
+        }
+
+        function importPresets() {
+            var json = prompt('Paste exported views JSON:');
+            if(!json) return;
+            try {
+                var imported = JSON.parse(json);
+                var count = 0;
+                for(var k in imported) { savedViews[k] = imported[k]; count++; }
+                localStorage.setItem(PRESET_KEY, JSON.stringify(savedViews));
+                refreshPresetButtons();
+                document.getElementById('statusBar').innerText = 'Imported ' + count + ' views!';
+            } catch(e) { alert('Invalid JSON: ' + e.message); }
+        }
+
+        // ===== MOUSE =====
+        document.getElementById('plot').addEventListener('wheel',function(e){e.preventDefault();var zoom=parseFloat(document.getElementById('camZoom').value);zoom+=e.deltaY*-0.003;zoom=Math.max(0.1,Math.min(50.0,zoom));document.getElementById('camZoom').value=zoom;updateRot();},{passive:false});
+        var isDragging=false,prevMouse={x:0,y:0};
+        document.getElementById('plot').addEventListener('mousedown',function(e){isDragging=true;prevMouse={x:e.clientX,y:e.clientY};});
+        window.addEventListener('mouseup',function(){isDragging=false;});
+        document.getElementById('plot').addEventListener('mousemove',function(e){
+            if(!isDragging) return;
+            var dx=e.clientX-prevMouse.x,dy=e.clientY-prevMouse.y;prevMouse={x:e.clientX,y:e.clientY};
+            if(e.metaKey||e.ctrlKey){var ps=0.01*(d/parseFloat(document.getElementById('camZoom').value));nullObject.position.x-=dx*ps;nullObject.position.y+=dy*ps;}
+            else{var rx=parseFloat(document.getElementById('rotX').value)+dy*0.4,ry=parseFloat(document.getElementById('rotY').value)+dx*0.4;rx=Math.max(-180,Math.min(180,rx));if(ry>180)ry-=360;if(ry<-180)ry+=360;document.getElementById('rotX').value=rx;document.getElementById('rotY').value=ry;updateRot();}
+        });
+
+        function animate(ts){requestAnimationFrame(animate);turntableStep(ts||0);renderer.render(scene,camera);}
+        window.addEventListener('resize',function(){aspect=window.innerWidth/window.innerHeight;renderer.setSize(window.innerWidth,window.innerHeight);updateRot();},false);
+        // ===== PER-SIDE TRANSFORMS (added) : per-side renderer + controls =====
+        function togglePanel(bodyId, arrowId){
+            var el=document.getElementById(bodyId); if(!el) return;
+            var hidden=(el.style.display==='none');
+            el.style.display = hidden ? '' : 'none';
+            var ar=document.getElementById(arrowId); if(ar) ar.innerHTML = hidden ? '\u25BE' : '\u25B8';
+        }
+        function ensurePerSide(){
+            if(!perSideActive){
+                perSideActive=true;
+                var cb=document.getElementById('psEnable'); if(cb) cb.checked=true;
+                applyPerSideVisibility();
+            }
+        }
+        function applyPerSideVisibility(){
+            pointsObj.visible = !perSideActive;
+            if(!perSideActive){
+                callsObj.visible=false; putsObj.visible=false;
+            } else {
+                callsObj.visible = sideShow.call;
+                putsObj.visible  = sideShow.put;
+                buildPerSide();
+            }
+            // keep combined mirror clone consistent with combined visibility
+            if(perSideActive) mirrorObj.visible=false;
+        }
+        function togglePerSide(on){ perSideActive=!!on; applyPerSideVisibility(); }
+        function showSideSolo(which){
+            ensurePerSide();
+            sideShow.call = (which==='both'||which==='call');
+            sideShow.put  = (which==='both'||which==='put');
+            callsObj.visible=sideShow.call; putsObj.visible=sideShow.put;
+        }
+        function flipBtnStyle(side, axis){
+            var b=document.getElementById('ps'+(side==='call'?'Call':'Put')+axis); if(!b) return;
+            var on=sideFlip[side][axis];
+            b.style.background = on ? (side==='call'?'#16263a':'#3a1626') : '#222';
+            b.style.borderColor = on ? (side==='call'?'#8af':'#f8a') : '#444';
+            b.style.color = on ? (side==='call'?'#8af':'#f8a') : '#fff';
+        }
+        function toggleSideFlip(side, axis){
+            ensurePerSide();
+            sideFlip[side][axis]=!sideFlip[side][axis];
+            flipBtnStyle(side,axis);
+            applySideTransforms();
+        }
+        function resetSideFlips(){
+            ['call','put'].forEach(function(s){ ['x','y','z'].forEach(function(a){ sideFlip[s][a]=false; flipBtnStyle(s,a); }); });
+            applySideTransforms();
+        }
+        function onOffset(){
+            ensurePerSide();
+            ['call','put'].forEach(function(s){ ['x','y','z'].forEach(function(a){
+                var id='off'+(s==='call'?'Call':'Put')+a;
+                var v=parseFloat(document.getElementById(id).value)||0;
+                sideOffset[s][a]=v;
+                document.getElementById('val'+id.charAt(0).toUpperCase()+id.slice(1)).innerText=v.toFixed(2);
+            }); });
+            applySideTransforms();
+        }
+        function resetOffsets(){
+            ['call','put'].forEach(function(s){ ['x','y','z'].forEach(function(a){
+                var id='off'+(s==='call'?'Call':'Put')+a;
+                document.getElementById(id).value=0; sideOffset[s][a]=0;
+                document.getElementById('val'+id.charAt(0).toUpperCase()+id.slice(1)).innerText='0.00';
+            }); });
+            applySideTransforms();
+        }
+        function applySideTransforms(){
+            var ps=parseFloat(document.getElementById('pointSize').value)||2;
+            callsMaterial.size=ps; putsMaterial.size=ps;
+            callsMaterial.needsUpdate=true; putsMaterial.needsUpdate=true;
+            callsObj.scale.set(sideFlip.call.x?-1:1, sideFlip.call.y?-1:1, sideFlip.call.z?-1:1);
+            putsObj.scale.set(sideFlip.put.x?-1:1, sideFlip.put.y?-1:1, sideFlip.put.z?-1:1);
+            callsObj.position.set(sideOffset.call.x, sideOffset.call.y, sideOffset.call.z);
+            putsObj.position.set(sideOffset.put.x, sideOffset.put.y, sideOffset.put.z);
+        }
+        // CASCADE-AWARE per-side (v2): mirrors advanced rebuild()'s per-point loop
+        // (norm + Quant axes + Cascade + Y-axis moneyness + uni_* flat colors)
+        // for a SINGLE side's grid, so per-side clouds match the combined view.
+        function buildSideCloud(side, geom){
+            var dir = side==='call' ? document.getElementById('selCallDir').value : document.getElementById('selPutDir').value;
+            var sign = (dir==='invert') ? -1 : 1;
+            var calc = document.getElementById('selCalc').value;
+            var normMode = document.getElementById('selNorm').value;
+            var thresh = parseInt(document.getElementById('threshold').value);
+            var palName = document.getElementById('selColor').value;
+            var gridKey = calc === 'svd' ? 'density' : calc;
+            var combined = new Float32Array(STRIKE_RES * TIME_RES);
+            activeExps.forEach(function(expKey){
+                var prefix = (activeExchange !== 'all') ? activeExchange : expKey;
+                var g = getGrid(prefix + '_' + side + '_' + gridKey);
+                if(!g) return;
+                for(var i=0;i<combined.length;i++) combined[i]+=g[i]*sign;
+            });
+            if(calc === 'svd') combined = computeSVDResidual(combined, STRIKE_RES, TIME_RES, 3);
+
+            if(normMode === 'row') {
+                for(var r=0;r<STRIKE_RES;r++) {
+                    var mx=0; for(var c=0;c<TIME_RES;c++) mx=Math.max(mx,Math.abs(combined[r*TIME_RES+c]));
+                    if(mx>0) for(var c2=0;c2<TIME_RES;c2++) combined[r*TIME_RES+c2]/=mx;
+                }
+            } else if(normMode !== 'none') {
+                var QS = {
+                    normType: normMode,
+                    t: parseFloat(document.getElementById('nBlend').value),
+                    mmLo: parseFloat(document.getElementById('nMmLo').value),
+                    mmHi: parseFloat(document.getElementById('nMmHi').value),
+                    muLaw: parseFloat(document.getElementById('nMu').value),
+                    gammaP: parseFloat(document.getElementById('nGamma').value),
+                    levels: parseInt(document.getElementById('nLevels').value),
+                    qPre: document.getElementById('nQPre').value,
+                    qMuLaw: document.getElementById('nQMuLaw').checked,
+                    qMu: parseFloat(document.getElementById('nQMu').value),
+                    qLo: parseFloat(document.getElementById('nQLo').value)/100,
+                    qHi: parseFloat(document.getElementById('nQHi').value)/100
+                };
+                if(isNaN(QS.mmLo)) QS.mmLo=-1;
+                if(isNaN(QS.mmHi)) QS.mmHi=1;
+                for(var r3=0;r3<STRIKE_RES;r3++) {
+                    var rowArr = combined.subarray(r3*TIME_RES, (r3+1)*TIME_RES);
+                    var f = QNorm.normRow(rowArr, QS);
+                    for(var c3=0;c3<TIME_RES;c3++) combined[r3*TIME_RES+c3]=f[c3];
+                }
+            }
+
+            var _cpA=(parseInt(document.getElementById('cpAlign').value)||0)/100;
+            var _cpMa=0; for(var i=0;i<combined.length;i++){var _a=Math.abs(combined[i]); if(_a>_cpMa)_cpMa=_a;}
+            var _cpFlip=document.getElementById('cpFlip')?document.getElementById('cpFlip').checked:false;
+            var absVals=new Float32Array(combined.length);
+            for(var i=0;i<combined.length;i++) absVals[i]=Math.abs(combined[i]);
+            var sorted=Array.from(absVals).sort(function(a,b){return a-b;});
+            var cutoff=sorted[Math.floor(sorted.length*thresh/100)];
+
+            var positions=[], colors=[];
+            var _qax={x:qAxOn.x,y:qAxOn.y,z:qAxOn.z}; var _qEff=function(a){ return Math.max(2,(syncAxis?qLevels[syncAxis]:qLevels[a])|0); };
+            var _casOn=document.getElementById('casOn')?document.getElementById('casOn').checked:false;
+            var _casLv=(document.getElementById('casLevels')?document.getElementById('casLevels').value:'').split(',').map(function(s){return parseInt(s)||0;}).filter(function(n){return n>=2;});
+            var _yax=(document.getElementById('selYAxis')||{value:'strike'}).value;
+            var _spot=(typeof META!=='undefined' && META.spot)?META.spot:0;
+            function _qsnap(v,lo,hi,L){ if(!(L>=2)) return v; var t=(v-lo)/((hi-lo)||1); t=Math.round(t*(L-1))/(L-1); return lo+t*(hi-lo); }
+            function _cascadeQ(v,lo,hi,arr){ if(!arr||!arr.length) return v; var c0=lo,c1=hi,q=v; for(var ci=0;ci<arr.length;ci++){ var L=Math.max(2,arr[ci]|0); var span=(c1-c0)||1; var t=(v-c0)/span; if(t<0)t=0; else if(t>1)t=1; var step=span/(L-1); var k=Math.round(t*(L-1)); q=c0+k*step; c0=q-step/2; c1=q+step/2; } return q; }
+            var _UNI={uni_white:[1,1,1],uni_cyan:[0.35,1,1],uni_amber:[1,0.78,0.25],uni_green:[0.45,1,0.45]}; var _uni=_UNI[palName]; var palette=PALETTES[palName]||PALETTES.magma;
+            var zMin=Infinity,zMax=-Infinity;
+            for(var i=0;i<combined.length;i++){if(combined[i]<zMin)zMin=combined[i];if(combined[i]>zMax)zMax=combined[i];}
+            var zRange=zMax-zMin;if(zRange===0)zRange=1;var _flow=(calc==='flow'),_fabs=1;if(_flow){var _fv=[];for(var _fi=0;_fi<combined.length;_fi++){var _fa=Math.abs(combined[_fi]);if(_fa>0)_fv.push(_fa);}_fv.sort(function(a,b){return a-b;});_fabs=_fv.length?_fv[Math.floor(_fv.length*0.98)]:1;if(!(_fabs>0))_fabs=1;}
+            var xM=TIME_RES/2,yM=STRIKE_RES/2,xS=3.0/(TIME_RES/2),yS=3.0/(STRIKE_RES/2);
+            var count=0;
+            var onionX = parseInt(document.getElementById('fbOnion').value) || 0;
+            var _bgHex = parseInt(document.getElementById('selBg').value) || 0;
+            var _br=((_bgHex>>16)&255)/255, _bgG=((_bgHex>>8)&255)/255, _bb=(_bgHex&255)/255;
+            var _axis=(typeof fbAxis!=='undefined')?fbAxis:'y';
+            var _NZ=120;
+            for(var row=0;row<STRIKE_RES;row++){
+                if(soloRow>=0 && _axis==='y' && Math.abs(row-soloRow)>onionX) continue;
+                for(var col=0;col<TIME_RES;col++){
+                    var idx=row*TIME_RES+col;
+                    if(Math.abs(combined[idx])<=cutoff) continue;
+                    var rowAlpha=1;
+                    if(soloRow>=0){
+                        var _coord = (_axis==='x') ? col : (_axis==='z') ? Math.round((combined[idx]-zMin)/zRange*(_NZ-1)) : row;
+                        var _dd=Math.abs(_coord-soloRow);
+                        if(_dd>onionX) continue;
+                        rowAlpha = onionX>0 ? (1 - _dd/(onionX+1)) : 1;
+                    }
+                    var _zc=combined[idx]/zRange*2.0;
+                    if(_cpFlip){ var _inner=cutoff/zRange*2.0, _outer=(_cpMa/zRange*2.0)||1; _zc=Math.sign(_zc)*(_inner+_outer)-_zc; }
+                    if(_cpA>0){ var _half=(_cpMa/zRange*2.0)||1; _zc=Math.sign(_zc)*Math.max(0,Math.abs(_zc)-_cpA*_half); }
+                    else if(_cpA<0){ _zc=_zc*(1-_cpA); }
+                    var _px=(col-xM)*xS, _pz=_zc, _py;
+                    if(_yax!=='strike' && _spot>0){ var _K=META.strikes[STRIKE_RES-1-row]; var _mny=(_K>0?_K/_spot:1); var _yv=(_yax==='logmon')?Math.log(_mny)*1.6:(_mny-1)*3.0; if(_yv<-3)_yv=-3; else if(_yv>3)_yv=3; _py=_yv; } else { _py=(row-yM)*yS; }
+                    if(_casOn){
+                        if(_qax.x) _px=_cascadeQ(_px,(0-xM)*xS,(TIME_RES-1-xM)*xS,_casLv);
+                        if(_qax.y) _py=_cascadeQ(_py,(0-yM)*yS,(STRIKE_RES-1-yM)*yS,_casLv);
+                        if(_qax.z) _pz=_cascadeQ(_pz,zMin/zRange*2.0,zMax/zRange*2.0,_casLv);
+                    } else {
+                        if(_qax.x) _px=_qsnap(_px,(0-xM)*xS,(TIME_RES-1-xM)*xS,_qEff('x'));
+                        if(_qax.y) _py=_qsnap(_py,(0-yM)*yS,(STRIKE_RES-1-yM)*yS,_qEff('y'));
+                        if(_qax.z) _pz=_qsnap(_pz,-2.0,2.0,_qEff('z'));
+                    }
+                    positions.push(_px,_py,_pz);
+                    var t=(combined[idx]-zMin)/zRange;
+                    var ci=Math.max(0,Math.min(255,Math.floor(t*255)));
+                    var _cr,_cg,_cb; if(_uni){ _cr=_uni[0]; _cg=_uni[1]; _cb=_uni[2]; } else { _cr=palette[ci*3]; _cg=palette[ci*3+1]; _cb=palette[ci*3+2]; }
+                    if(rowAlpha<1){ _cr=_br+(_cr-_br)*rowAlpha; _cg=_bgG+(_cg-_bgG)*rowAlpha; _cb=_bb+(_cb-_bb)*rowAlpha; }
+                    if(_flow){var _fc=combined[idx]/_fabs;if(_fc>1)_fc=1;else if(_fc<-1)_fc=-1;if(_fc>=0){_cr=1;_cg=1-0.85*_fc;_cb=1-0.95*_fc;}else{var _fm=-_fc;_cr=1-0.95*_fm;_cg=1-0.85*_fm;_cb=1;}}colors.push(_cr,_cg,_cb);
+                    count++;
+                }
+            }
+            geom.setAttribute('position',new THREE.BufferAttribute(new Float32Array(positions),3));
+            geom.setAttribute('color',new THREE.BufferAttribute(new Float32Array(colors),3));
+            geom.computeBoundingSphere();
+            return count;
+        }
+        function buildPerSide(){
+            if(!perSideActive) return;
+            var nc = sideShow.call ? buildSideCloud('call', callsGeometry) : 0;
+            var np = sideShow.put  ? buildSideCloud('put',  putsGeometry)  : 0;
+            applySideTransforms();
+            var sb=document.getElementById('statusBar');
+            if(sb) sb.innerText = 'PER-SIDE | calls '+nc.toLocaleString()+' | puts '+np.toLocaleString()+' pts';
+        }
+        // Wrap existing rebuild/updateSize so per-side clouds stay in sync.
+        var _origRebuild = rebuild;
+        rebuild = function(){ _origRebuild.apply(this, arguments); try{ buildPerSide(); }catch(e){} };
+        var _origUpdateSize = updateSize;
+        updateSize = function(){ _origUpdateSize.apply(this, arguments); try{ if(perSideActive) applySideTransforms(); }catch(e){} };
+
+        
+        // ===== ONION SKIN (overlay past days) =====
+        // Each past day gets a ghost Points object PLUS a mirror-clone so the onion
+        // honours the Z/X/Y mirror state exactly like the live surface (otherwise
+        // ghosts would only appear on the un-mirrored side).
+        var onionN = 0, ONION_MAX = 10, onionGhosts = [], onionMirrors = [], _onionBusy = false;
+        (function(){ for(var i=0;i<ONION_MAX;i++){
+            var gg = new THREE.BufferGeometry();
+            var gmat = new THREE.PointsMaterial({ size:2, vertexColors:true, sizeAttenuation:false, transparent:true, opacity:0.0, depthWrite:false });
+            var gp = new THREE.Points(gg, gmat); gp.visible = false; nullObject.add(gp); onionGhosts.push(gp);
+            var mg = new THREE.BufferGeometry();
+            var mmat = new THREE.PointsMaterial({ size:2, vertexColors:true, sizeAttenuation:false, transparent:true, opacity:0.0, depthWrite:false });
+            var mp = new THREE.Points(mg, mmat); mp.visible = false; nullObject.add(mp); onionMirrors.push(mp);
+        }})();
+        function _onionDates(){ var ad = window.__AD; return (window.__AD_DATES||[]).filter(function(d){ return !!ad[d]; }); }
+        // mirror each visible ghost to match the global mirrorState (flip / both)
+        function syncOnionMirror(){
+            var anyBoth = (mirrorState.x===2||mirrorState.y===2||mirrorState.z===2);
+            for(var i=0;i<onionGhosts.length;i++){
+                var g = onionGhosts[i], gm = onionMirrors[i];
+                g.scale.x = (mirrorState.x===1)?-1:1; g.scale.y = (mirrorState.y===1)?-1:1; g.scale.z = (mirrorState.z===1)?-1:1;
+                if(g.visible && anyBoth){
+                    gm.geometry.setAttribute('position', g.geometry.getAttribute('position'));
+                    gm.geometry.setAttribute('color', g.geometry.getAttribute('color'));
+                    gm.geometry.computeBoundingSphere();
+                    gm.material.opacity = g.material.opacity; gm.material.size = g.material.size; gm.material.needsUpdate = true;
+                    gm.scale.x = (mirrorState.x===2)?-1:1; gm.scale.y = (mirrorState.y===2)?-1:1; gm.scale.z = (mirrorState.z===2)?-1:1;
+                    gm.visible = true;
+                } else { gm.visible = false; }
+            }
+        }
+        function applyOnion(){
+            for(var i=0;i<onionGhosts.length;i++){ onionGhosts[i].visible = false; onionMirrors[i].visible = false; }
+            if(!(onionN>0) || _onionBusy){ if(!(onionN>0)) syncOnionMirror(); return; }
+            _onionBusy = true;
+            var dates = _onionDates(), curi = dates.indexOf(window.__DI);
+            var sDI=window.__DI, sM=META, sG=GRID_DATA, sSR=STRIKE_RES, sTR=TIME_RES, sGRIDS=GRIDS, sE=new Set(activeExps);
+            var baseSize = (material && material.size) ? material.size : 2;
+            var made=0;
+            for(var j=1; j<=onionN && (curi-j)>=0 && made<onionGhosts.length; j++){
+                var d = dates[curi-j], rec = window.__AD[d]; if(!rec) continue;
+                META=rec.META; GRID_DATA=rec.GRID_DATA; STRIKE_RES=META.strike_res; TIME_RES=META.time_res; GRIDS={};
+                activeExps=new Set(); META.expirations.forEach(function(e){ activeExps.add(e.key); });
+                try { _origRebuild(); } catch(e){ continue; }
+                var pa=geometry.getAttribute('position'), ca=geometry.getAttribute('color');
+                if(!pa || !ca) continue;
+                var g=onionGhosts[made];
+                g.geometry.setAttribute('position', new THREE.Float32BufferAttribute(pa.array.slice(0), 3));
+                g.geometry.setAttribute('color',    new THREE.Float32BufferAttribute(ca.array.slice(0), 3));
+                g.geometry.computeBoundingSphere();
+                var fade = 0.5*(1 - (j-1)/onionN); if(fade<0.06) fade=0.06;
+                g.material.opacity = fade;
+                g.material.size = Math.max(1, baseSize*0.85);
+                g.material.needsUpdate = true; g.visible = true; made++;
+            }
+            // restore the current day
+            window.__DI=sDI; META=sM; GRID_DATA=sG; STRIKE_RES=sSR; TIME_RES=sTR; GRIDS=sGRIDS; activeExps=sE;
+            try { _origRebuild(); } finally { _onionBusy = false; }
+            syncOnionMirror();   // mirror the ghosts to match the live surface
+        }
+        window.setOnion = function(n){ onionN = Math.max(0, n|0); applyOnion(); };
+        // refresh ghosts after any rebuild (date / control change), reentrancy-guarded
+        var _preOnionRebuild = rebuild;
+        rebuild = function(){ _preOnionRebuild.apply(this, arguments); if(onionN>0 && !_onionBusy) applyOnion(); };
+        // when the mirror state is toggled, re-mirror the ghosts too
+        var _preOnionToggleMirror = toggleMirror;
+        toggleMirror = function(a){ _preOnionToggleMirror(a); syncOnionMirror(); };
+
+        rebuild();toggleMirror('z');toggleMirror('z');resetCam(0,90,0);animate();
+        try { updateNormParams(); fbInit(); } catch (e) {}
+    </script>
+
+<div id="dayflipBar" style="position:fixed;left:50%;bottom:48px;transform:translateX(-50%);
+  z-index:50;display:flex;align-items:center;gap:12px;background:rgba(12,12,12,.93);
+  border:1px solid #2a2a2a;border-radius:10px;padding:9px 16px;font-family:monospace;
+  box-shadow:0 6px 30px rgba(0,0,0,.6);min-width:680px;">
+  <button id="dfPrev" title="Previous day (←)" style="background:#1f1f1f;color:#eee;border:1px solid #333;border-radius:5px;width:34px;height:30px;cursor:pointer;font-size:14px;">◀</button>
+  <button id="dfPlay" title="Play / pause (space)" style="background:#1f1f1f;color:#39ff88;border:1px solid #333;border-radius:5px;width:34px;height:30px;cursor:pointer;font-size:14px;">▶</button>
+  <button id="dfNext" title="Next day (→)" style="background:#1f1f1f;color:#eee;border:1px solid #333;border-radius:5px;width:34px;height:30px;cursor:pointer;font-size:14px;">▶▌</button>
+  <input id="dfScrub" type="range" min="0" max="0" value="0" step="1" style="flex:1;accent-color:#39ff88;height:16px;cursor:pointer;">
+  <div style="min-width:190px;text-align:right;color:#888;font-size:12px;">
+    <span id="dfDate" style="color:#39ff88;font-weight:700;font-size:16px;">--</span>
+    <span id="dfIdx"></span>
+  </div>
+  <label style="color:#888;font-size:11px;display:flex;align-items:center;gap:5px;">fps
+    <input id="dfFps" type="range" min="1" max="12" value="3" step="1" style="width:70px;accent-color:#39ff88;">
+    <span id="dfFpsV" style="color:#39ff88;width:14px;">3</span></label>
+  <label style="color:#888;font-size:11px;display:flex;align-items:center;gap:4px;cursor:pointer;">
+    <input id="dfLoop" type="checkbox" checked style="accent-color:#39ff88;">loop</label>
+  <label style="color:#888;font-size:11px;display:flex;align-items:center;gap:5px;" title="Overlay this many previous trading days as faded ghost surfaces (aligns best with Moneyness Y-axis).">onion
+    <input id="dfOnion" type="range" min="0" max="10" value="0" step="1" style="width:80px;accent-color:#ffae42;">
+    <span id="dfOnionV" style="color:#ffae42;width:14px;">0</span></label>
+  <button id="dfMin" title="Minimize timeline to corner" style="background:#1f1f1f;color:#aaa;border:1px solid #333;border-radius:5px;width:28px;height:26px;cursor:pointer;font-size:13px;margin-left:2px;">⤡</button>
+</div>
+<button id="dfRestore" title="Restore timeline" style="position:fixed;bottom:14px;right:14px;z-index:51;display:none;
+  background:rgba(12,12,12,.93);color:#39ff88;border:1px solid #2a2a2a;border-radius:8px;padding:7px 12px;
+  font-family:monospace;font-size:12px;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.6);">▸ timeline</button>
+<div id="dfNote" style="display:none"><span id="dfDeg" style="display:none"></span></div>
+<script>
+(function(){
+  var DATES = (window.__AD_DATES||[]).slice();
+  var i0 = DATES.indexOf(window.__DI); if(i0<0) i0=0;
+  var cur = i0, playing=false, fps=3, timer=null;
+  var scrub=document.getElementById('dfScrub'), dateEl=document.getElementById('dfDate'),
+      idxEl=document.getElementById('dfIdx'), playBtn=document.getElementById('dfPlay'),
+      degEl=document.getElementById('dfDeg');
+  scrub.max = DATES.length-1; scrub.value = cur;
+  function isSparse(d){ var ad=window.__AD[d]; if(!ad) return false;
+    var n=Object.keys(ad.GRID_DATA).length; return n<=8; }
+  window.syncDayflip = function(d){ var k=DATES.indexOf(d); if(k>=0)cur=k;
+    scrub.value=cur; dateEl.textContent=DATES[cur];
+    idxEl.textContent=' · day '+(cur+1)+'/'+DATES.length;
+    degEl.style.display = isSparse(DATES[cur]) ? 'inline':'none'; };
+  window.__dfRefresh = function(){ DATES=(window.__AD_DATES||[]).slice(); scrub.max=DATES.length-1; var k=DATES.indexOf(window.__DI); cur=k>=0?k:0; scrub.value=cur; dateEl.textContent=DATES[cur]||''; idxEl.textContent=' \u00b7 day '+(cur+1)+'/'+DATES.length; };
+  function go(k){ cur=((k%DATES.length)+DATES.length)%DATES.length; switchDate(DATES[cur]); }
+  function stopTimer(){ if(timer){clearInterval(timer);timer=null;} }
+  function startTimer(){ stopTimer(); timer=setInterval(function(){
+    if(cur>=DATES.length-1){ if(document.getElementById('dfLoop').checked) go(0);
+      else setPlay(false); } else go(cur+1); }, 1000/fps); }
+  function setPlay(p){ playing=p; playBtn.textContent=p?'❚❚':'▶';
+    if(p)startTimer(); else stopTimer(); }
+  document.getElementById('dfPrev').onclick=function(){ setPlay(false); go(cur-1); };
+  document.getElementById('dfNext').onclick=function(){ setPlay(false); go(cur+1); };
+  playBtn.onclick=function(){ setPlay(!playing); };
+  scrub.oninput=function(){ setPlay(false); go(+this.value); };
+  var fpsR=document.getElementById('dfFps');
+  fpsR.oninput=function(){ fps=+this.value; document.getElementById('dfFpsV').textContent=this.value;
+    if(playing)startTimer(); };
+  var onionR=document.getElementById('dfOnion');
+  onionR.oninput=function(){ document.getElementById('dfOnionV').textContent=this.value;
+    if(window.setOnion) window.setOnion(+this.value); };
+  window.addEventListener('keydown',function(e){
+    var t=e.target.tagName; if(t==='INPUT'||t==='SELECT'||t==='TEXTAREA') return;
+    if(e.key==='ArrowRight'){ setPlay(false); go(cur+1); e.preventDefault(); }
+    else if(e.key==='ArrowLeft'){ setPlay(false); go(cur-1); e.preventDefault(); }
+    else if(e.key===' '){ setPlay(!playing); e.preventDefault(); }
+    else if(e.key==='Home'){ setPlay(false); go(0); }
+    else if(e.key==='End'){ setPlay(false); go(DATES.length-1); }
+  });
+  // ---- minimize timeline to corner / restore ----
+  var bar=document.getElementById('dayflipBar'), restore=document.getElementById('dfRestore');
+  document.getElementById('dfMin').onclick=function(){ bar.style.display='none'; restore.style.display='block'; };
+  restore.onclick=function(){ restore.style.display='none'; bar.style.display='flex'; };
+
+  // ---- collapsible side panels (click any section header to fold it) ----
+  document.querySelectorAll('#controls .cg').forEach(function(cg){
+    var h = cg.querySelector(':scope > .hdr'); if(!h) return;
+    h.addEventListener('click', function(ev){
+      if(ev.target.closest('input,select,button,.chip')) return; // don't fold on control clicks
+      cg.classList.toggle('df-collapsed');
+    });
+  });
+  var _sp=document.getElementById('shiftPanel'); if(_sp) _sp.classList.add('df-collapsed'); // Position Shift starts folded
+
+  // initial label sync (engine already rendered INIT date)
+  window.syncDayflip(window.__DI);
+})();
+</script>
+
+<script>
+// ===== user-data CSV loader (shareable edition) =====
+// CSV columns (header required, any order, case-insensitive):
+//   date, expiration, strike, right, open_interest [, spot]
+// right: C/CALL/P/PUT. Dates: YYYY-MM-DD, YYYYMMDD, or M/D/YYYY. One ticker per file.
+(function(){
+'use strict';
+
+function normDate(s){
+    s = String(s).trim();
+    if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+    if(/^\d{8}$/.test(s)) return s.slice(0,4)+'-'+s.slice(4,6)+'-'+s.slice(6,8);
+    var m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if(m) return m[3]+'-'+('0'+m[1]).slice(-2)+'-'+('0'+m[2]).slice(-2);
+    return null;
+}
+function thirdFriday(y, mo){ // mo 1-12
+    var d = new Date(Date.UTC(y, mo-1, 1));
+    var fri = (5 - d.getUTCDay() + 7) % 7; // days to first Friday
+    return new Date(Date.UTC(y, mo-1, 1 + fri + 14));
+}
+function labelFor(expStr, days){
+    if(days <= 1) return '0DTE';
+    var p = expStr.split('-').map(Number);
+    var ed = new Date(Date.UTC(p[0], p[1]-1, p[2]));
+    var tf = thirdFriday(p[0], p[1]);
+    if(ed.getTime() === tf.getTime()){
+        if(days > 270) return 'LEAPS';
+        if(p[1]===3||p[1]===6||p[1]===9||p[1]===12) return 'Quarterly';
+        return 'Monthly';
+    }
+    return 'Weekly';
+}
+function f32b64(arr){
+    var u8 = new Uint8Array(new Float32Array(arr).buffer), s = '';
+    for(var i=0;i<u8.length;i+=0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i+0x8000));
+    return btoa(s);
+}
+function findCol(hdr, names){
+    for(var i=0;i<hdr.length;i++) if(names.indexOf(hdr[i])>=0) return i;
+    return -1;
+}
+
+// pure: csv text -> {recs:{date:record}, err}
+window.__csvParse = function(text){
+    var lines = text.split(/\r?\n/).filter(function(l){ return l.trim().length; });
+    if(lines.length < 2) return {err:'CSV has no data rows'};
+    var hdr = lines[0].toLowerCase().split(',').map(function(h){ return h.trim().replace(/^"|"$/g,''); });
+    var cD = findCol(hdr,['date','trade_date','quote_date']),
+        cE = findCol(hdr,['expiration','exp','expiry','expiration_date']),
+        cK = findCol(hdr,['strike','strike_price']),
+        cR = findCol(hdr,['right','type','cp','call_put','putcall','option_type']),
+        cO = findCol(hdr,['open_interest','oi','openinterest']),
+        cS = findCol(hdr,['spot','underlying','underlying_price','close']);
+    var miss = [];
+    if(cD<0) miss.push('date'); if(cE<0) miss.push('expiration'); if(cK<0) miss.push('strike');
+    if(cR<0) miss.push('right'); if(cO<0) miss.push('open_interest');
+    if(miss.length) return {err:'missing column(s): '+miss.join(', ')+' — header must name them (see README)'};
+    var days = {}; // date -> {rows:[[exp,K,right,oi]], spot}
+    for(var i=1;i<lines.length;i++){
+        var c = lines[i].split(',');
+        if(c.length < 4) continue;
+        var d = normDate(c[cD]), e = normDate(c[cE]);
+        if(!d || !e) continue;
+        var K = parseFloat(c[cK]), oi = parseFloat(c[cO]);
+        var r = String(c[cR]).trim().charAt(0).toUpperCase();
+        if(!(K>0) || !(oi>0) || (r!=='C' && r!=='P')) continue;
+        if(!days[d]) days[d] = {rows:[], spot:0};
+        days[d].rows.push([e,K,r,oi]);
+        if(cS>=0){ var sp = parseFloat(c[cS]); if(sp>0) days[d].spot = sp; }
+    }
+    var recs = {}, dl = Object.keys(days).sort();
+    if(!dl.length) return {err:'no valid rows parsed — check date/expiration formats'};
+    dl.forEach(function(d){
+        var rows = days[d].rows;
+        var ks = {}, es = {};
+        rows.forEach(function(r){ ks[r[1]]=1; es[r[0]]=1; });
+        var strikes = Object.keys(ks).map(Number).sort(function(a,b){return a-b;});
+        var sidx = {}; strikes.forEach(function(k,i){ sidx[k]=i; });
+        var SR = strikes.length;
+        var exps = Object.keys(es).sort();
+        var grid = {}, expMeta = [];
+        var dms = Date.parse(d+'T00:00:00Z');
+        exps.forEach(function(e){
+            var cv = new Float32Array(SR), pv = new Float32Array(SR), n = 0;
+            rows.forEach(function(r){
+                if(r[0]!==e) return;
+                var ix = sidx[r[1]]; n++;
+                if(r[2]==='C') cv[ix] += r[3]; else pv[ix] += r[3];
+            });
+            var rev = function(a){ var b = new Float32Array(SR); for(var i=0;i<SR;i++) b[i]=a[SR-1-i]; return b; };
+            var key = e.replace(/-/g,'');
+            grid[key+'_call_oi'] = f32b64(rev(cv));
+            grid[key+'_put_oi']  = f32b64(rev(pv));
+            var d2 = Math.round((Date.parse(e+'T00:00:00Z')-dms)/864e5);
+            expMeta.push({key:key, exp:e, days:d2, label:labelFor(e,d2), rows:n});
+        });
+        var spot = days[d].spot;
+        if(!(spot>0)){ // OI-median strike fallback
+            var tot = {}, sum = 0;
+            rows.forEach(function(r){ tot[r[1]]=(tot[r[1]]||0)+r[3]; sum += r[3]; });
+            var cum = 0; spot = strikes[0];
+            for(var i=0;i<strikes.length;i++){ cum += (tot[strikes[i]]||0); if(cum >= sum/2){ spot = strikes[i]; break; } }
+        }
+        recs[d] = {META:{strike_res:SR, time_res:600, strikes:strikes,
+                         exchanges:[{id:'all', name:'ALL', count:rows.length}],
+                         expirations:expMeta, date:d, spot:Math.round(spot*100)/100, source:'user_csv'},
+                   GRID_DATA:grid};
+    });
+    return {recs:recs, dates:dl};
+};
+
+function toast(msg, bad){
+    var t = document.createElement('div');
+    t.textContent = msg;
+    t.style.cssText = 'position:fixed;top:16px;right:16px;z-index:9999;background:'+(bad?'#611':'#062')+';color:#cfc;border:1px solid '+(bad?'#f66':'#0f6')+';padding:10px 14px;border-radius:6px;font:12px monospace;max-width:420px';
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); }, bad?6000:3200);
+}
+
+window.__registerUserData = function(res){
+    if(res.err){ toast('CSV error: '+res.err, true); return; }
+    Object.assign(window.__AD, res.recs);
+    var all = {}; (window.__AD_DATES||[]).forEach(function(d){ all[d]=1; });
+    res.dates.forEach(function(d){ all[d]=1; window.__chunkLoaded[d.slice(0,7)] = true; });
+    window.__AD_DATES = Object.keys(all).sort();
+    var sel = document.getElementById('selDate');
+    if(sel){
+        sel.innerHTML = '';
+        window.__AD_DATES.forEach(function(d){
+            var o = document.createElement('option'); o.value = d; o.textContent = d; sel.appendChild(o);
+        });
+    }
+    if(window.__dfRefresh) window.__dfRefresh();
+    toast('loaded '+res.dates.length+' day(s): '+res.dates[0]+' → '+res.dates[res.dates.length-1]);
+    try { switchDate(res.dates[0]); } catch(e){}
+};
+
+function handleFiles(files){
+    var todo = Array.prototype.slice.call(files).filter(function(f){ return /\.csv$/i.test(f.name); });
+    if(!todo.length){ toast('drop a .csv file', true); return; }
+    var merged = null, left = todo.length;
+    todo.forEach(function(f){
+        var rd = new FileReader();
+        rd.onload = function(){
+            var res = window.__csvParse(String(rd.result));
+            if(res.err){ toast(f.name+': '+res.err, true); }
+            else if(!merged){ merged = res; }
+            else { Object.assign(merged.recs, res.recs); merged.dates = merged.dates.concat(res.dates).sort().filter(function(d,i,a){ return a.indexOf(d)===i; }); }
+            if(--left === 0 && merged) window.__registerUserData(merged);
+        };
+        rd.readAsText(f);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+    // Load button next to the date dropdown
+    var sel = document.getElementById('selDate');
+    if(sel && sel.parentNode){
+        var b = document.createElement('button');
+        b.textContent = 'Load CSV…';
+        b.title = 'Load your own OI data (see README.md for the format)';
+        b.style.cssText = 'margin-left:6px;background:#062;border:1px solid #0f6;color:#cfc;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer';
+        var inp = document.createElement('input');
+        inp.type = 'file'; inp.accept = '.csv'; inp.multiple = true; inp.style.display = 'none';
+        inp.onchange = function(){ handleFiles(inp.files); inp.value = ''; };
+        b.onclick = function(){ inp.click(); };
+        sel.parentNode.appendChild(b); sel.parentNode.appendChild(inp);
+    }
+    // Whole-window drag & drop
+    var ov = document.createElement('div');
+    ov.textContent = 'Drop OI CSV to load';
+    ov.style.cssText = 'display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,40,10,0.82);color:#4f4;font:700 28px monospace;align-items:center;justify-content:center;pointer-events:none';
+    document.body.appendChild(ov);
+    var hide;
+    window.addEventListener('dragover', function(e){ e.preventDefault(); ov.style.display = 'flex'; clearTimeout(hide); hide = setTimeout(function(){ ov.style.display='none'; }, 300); });
+    window.addEventListener('drop', function(e){ e.preventDefault(); ov.style.display = 'none'; if(e.dataTransfer && e.dataTransfer.files.length) handleFiles(e.dataTransfer.files); });
+});
+})();
+
+</script>
+</body>
+</html>
